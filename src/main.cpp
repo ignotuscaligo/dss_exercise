@@ -2,6 +2,8 @@
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
 
+#include <SDL.h>
+
 #include <exception>
 #include <iostream>
 
@@ -14,6 +16,8 @@ const utility::string_t query_sport_id = U("1");
 int main(int argc, char** argv)
 {
     std::cout << "Hello, world!\n";
+
+    std::cout << "Test cpprestsdk\n";
 
     auto requestJson = web::http::client::http_client(base_url)
         .request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
@@ -52,6 +56,56 @@ int main(int argc, char** argv)
     {
         std::cout << "Exception occurred while processing request: " << e.what() << "\n";
     }
+
+    std::cout << "Test SDL\n";
+
+    SDL_Window* window = nullptr;
+    SDL_Surface* screenSurface = nullptr;
+
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        std::cout << "SDL could not initialize: " << SDL_GetError() << "\n";
+    }
+    else
+    {
+        window = SDL_CreateWindow("DSS Exercise",
+                                  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                  640, 480,
+                                  SDL_WINDOW_SHOWN);
+
+        if (window == nullptr)
+        {
+            std::cout << "Failed to create SDL window: " << SDL_GetError() << "\n";
+        }
+        else
+        {
+            screenSurface = SDL_GetWindowSurface(window);
+            SDL_FillRect(screenSurface, nullptr, SDL_MapRGB(screenSurface->format, 128, 180, 64));
+            SDL_UpdateWindowSurface(window);
+
+            SDL_Event e;
+            bool quit = false;
+
+            while (!quit)
+            {
+                while (SDL_PollEvent(&e))
+                {
+                    if (e.type == SDL_QUIT)
+                    {
+                        quit = true;
+                    }
+
+                    if (e.type == SDL_KEYDOWN)
+                    {
+                        quit = true;
+                    }
+                }
+            }
+        }
+    }
+
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
     std::cout << "Goodbye!\n";
 
