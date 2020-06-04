@@ -7,11 +7,18 @@ if(APPLE)
     set(OPENSSL_LIBRARIES /usr/local/opt/openssl/lib)
 endif()
 
+find_package(cpprestsdk REQUIRED)
+
 add_executable(dss_exercise)
 
 target_sources(dss_exercise
     PRIVATE
         "src/main.cpp"
+)
+
+target_link_libraries(dss_exercise
+    PRIVATE
+        cpprestsdk::cpprest
 )
 
 target_compile_features(dss_exercise
