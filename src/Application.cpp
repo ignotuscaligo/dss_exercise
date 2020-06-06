@@ -89,20 +89,16 @@ void Application::run()
 
             m_renderer->clear();
 
-            if (m_backgroundTexture != nullptr)
+            if (m_backgroundTexture)
             {
-                m_renderer->copy(m_backgroundTexture);
+                m_renderer->copy(m_backgroundTexture->handle());
             }
 
             m_renderer->present();
         }
     }
 
-    if (m_backgroundTexture != nullptr)
-    {
-        SDL_DestroyTexture(m_backgroundTexture);
-    }
-
+    m_backgroundTexture.reset();
     m_renderer.reset();
     m_window.reset();
 
@@ -201,24 +197,7 @@ void Application::update()
                 auto data = m_backgroundTask.get();
                 logger->debug("Extracted {} bytes", data.size());
 
-                SDL_Surface* image = IMG_Load_RW(SDL_RWFromMem(data.data(), data.size()), 1);
-
-                if (image == nullptr)
-                {
-                    logger->error("Failed to create image from provided data: {}", IMG_GetError());
-                }
-                else
-                {
-                    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-                    m_backgroundTexture = SDL_CreateTextureFromSurface(m_renderer->handle(), image);
-
-                    if (m_backgroundTexture == nullptr)
-                    {
-                        logger->error("Failed to convert image to texture: {}", SDL_GetError());
-                    }
-
-                    SDL_FreeSurface(image);
-                }
+                m_backgroundTexture = std::make_shared<render::Texture>(m_renderer, data);
 
                 m_backgroundTaskRunning = false;
             }
