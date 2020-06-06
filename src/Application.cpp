@@ -39,71 +39,55 @@ void Application::run()
 
     logger->info("Running application");
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    try
     {
-        logger->error("SDL could not initialize: {}", SDL_GetError());
+        m_context = std::make_shared<render::Context>();
+        m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
+        m_renderer = std::make_shared<render::Renderer>(m_window);
     }
-    else
+    catch (const std::runtime_error& e)
     {
-        try
+        logger->error("Failed to initialize SDL objects: {}", e.what());
+    }
+
+    m_renderer->drawColor(0, 0, 0, 255);
+
+    SDL_Event e;
+    bool quit = false;
+
+    initialize();
+
+    while (!quit)
+    {
+        while (SDL_PollEvent(&e))
         {
-            m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
-            m_renderer = std::make_shared<render::Renderer>(m_window);
-        }
-        catch (const std::runtime_error& e)
-        {
-            logger->error("Failed to initialize SDL objects: {}", e.what());
-        }
-
-        m_renderer->drawColor(0, 0, 0, 255);
-
-        int imageInitFlags = IMG_INIT_JPG;
-        int result = IMG_Init(imageInitFlags);
-
-        if ((result & imageInitFlags) != imageInitFlags)
-        {
-            logger->error("Failed to initialize image loading: {}", IMG_GetError());
-        }
-
-        SDL_Event e;
-        bool quit = false;
-
-        initialize();
-
-        while (!quit)
-        {
-            while (SDL_PollEvent(&e))
+            if (e.type == SDL_QUIT)
             {
-                if (e.type == SDL_QUIT)
-                {
-                    quit = true;
-                }
-
-                if (e.type == SDL_KEYDOWN)
-                {
-                    quit = true;
-                }
+                quit = true;
             }
 
-            update();
-
-            m_renderer->clear();
-
-            if (m_backgroundTexture)
+            if (e.type == SDL_KEYDOWN)
             {
-                m_renderer->fillTexture(m_backgroundTexture);
+                quit = true;
             }
-
-            m_renderer->present();
         }
+
+        update();
+
+        m_renderer->clear();
+
+        if (m_backgroundTexture)
+        {
+            m_renderer->fillTexture(m_backgroundTexture);
+        }
+
+        m_renderer->present();
     }
 
     m_backgroundTexture.reset();
     m_renderer.reset();
     m_window.reset();
-
-    IMG_Quit();
-    SDL_Quit();
+    m_context.reset();
 }
 
 void Application::initialize()

@@ -3,6 +3,7 @@
 #include "render/Window.h"
 #include "render/Renderer.h"
 #include "render/Texture.h"
+#include "render/Context.h"
 
 #include <cpprest/http_client.h>
 #include <pplx/pplxtasks.h>
@@ -30,6 +31,7 @@ private:
     bool                                   m_apiTaskRunning{false};
     bool                                   m_backgroundTaskRunning{false};
 
+    std::shared_ptr<render::Context>  m_context{nullptr};
     std::shared_ptr<render::Window>   m_window{nullptr};
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
     std::shared_ptr<render::Texture>  m_backgroundTexture{nullptr};
