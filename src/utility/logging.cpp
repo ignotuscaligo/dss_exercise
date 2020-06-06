@@ -9,7 +9,7 @@
 namespace utility
 {
 
-const std::string logging_file_path{"logs/log.txt"};
+const std::string logging_file_path{"log.txt"};
 
 spdlog::logger create_logger()
 {
