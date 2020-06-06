@@ -91,7 +91,7 @@ void Application::run()
 
             if (m_backgroundTexture)
             {
-                m_renderer->copy(m_backgroundTexture->handle());
+                m_renderer->fillTexture(m_backgroundTexture);
             }
 
             m_renderer->present();

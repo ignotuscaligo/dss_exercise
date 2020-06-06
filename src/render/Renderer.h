@@ -3,12 +3,12 @@
 #include <memory>
 
 class SDL_Renderer;
-class SDL_Texture;
 
 namespace render
 {
 
 class Window;
+class Texture;
 
 class Renderer
 {
@@ -20,8 +20,9 @@ public:
 
     void drawColor(int red, int green, int blue, int alpha);
     void clear();
-    void copy(SDL_Texture* texture);
     void present();
+
+    void fillTexture(std::shared_ptr<Texture> texture);
 
 private:
     SDL_Renderer* m_renderer{nullptr};
