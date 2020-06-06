@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-
 #include <string>
+
+class SDL_Window;
 
 namespace render
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-
 #include <memory>
 #include <vector>
+
+class SDL_Texture;
 
 namespace render
 {

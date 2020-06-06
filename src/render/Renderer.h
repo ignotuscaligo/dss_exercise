@@ -1,13 +1,14 @@
 #pragma once
 
-#include "render/Window.h"
-
-#include <SDL2/SDL.h>
-
 #include <memory>
+
+class SDL_Renderer;
+class SDL_Texture;
 
 namespace render
 {
+
+class Window;
 
 class Renderer
 {

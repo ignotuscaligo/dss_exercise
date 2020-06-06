@@ -6,6 +6,7 @@
 #include <SDL2/SDL_image.h>
 
 #include <exception>
+#include <string>
 
 namespace render
 {

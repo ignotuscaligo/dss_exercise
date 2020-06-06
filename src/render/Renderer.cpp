@@ -1,6 +1,11 @@
 #include "render/Renderer.h"
 
+#include "render/Window.h"
+
+#include <SDL2/SDL.h>
+
 #include <exception>
+#include <string>
 
 namespace render
 {
