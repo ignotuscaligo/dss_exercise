@@ -14,16 +14,20 @@
 namespace
 {
 
-const utility::string_t base_url       = U("http://statsapi.mlb.com");
+const utility::string_t statsapi_url   = U("http://statsapi.mlb.com");
 const utility::string_t api_schedule   = U("api/v1/schedule");
 const utility::string_t query_hydrate  = U("game(content(editorial(recap))),decisions");
 const utility::string_t query_date     = U("2018-06-10");
 const utility::string_t query_sport_id = U("1");
 
+const utility::string_t mlb_images_url   = U("http://mlb.mlb.com/mlb/images");
+const utility::string_t background_image = U("devices/ballpark/1920x1080/1.jpg");
+
 }
 
 Application::Application()
-: m_client(base_url)
+: m_apiClient(statsapi_url)
+, m_backgroundClient(mlb_images_url)
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
@@ -94,12 +98,12 @@ void Application::initialize()
 
     logger->info("Starting cpprestsdk task");
 
-    auto requestTask = m_client.request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
-                                                                                               .append_query(U("date"), query_date)
-                                                                                               .append_query(U("sportId"), query_sport_id)
-                                                                                               .to_string());
+    auto apiRequestTask = m_apiClient.request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
+                                                                                                     .append_query(U("date"), query_date)
+                                                                                                     .append_query(U("sportId"), query_sport_id)
+                                                                                                     .to_string());
 
-    auto jsonTask = requestTask.then([](web::http::http_response response) {
+    auto jsonTask = apiRequestTask.then([](web::http::http_response response) {
         auto logger = utility::get_logger();
 
         logger->debug("Received response: {}", response.status_code());
@@ -112,7 +116,7 @@ void Application::initialize()
         return response.extract_json();
     });
 
-    m_task = jsonTask.then([](web::json::value jsonObject) {
+    m_apiTask = jsonTask.then([](web::json::value jsonObject) {
         auto logger = utility::get_logger();
 
         logger->debug("Processing extracted JSON");
@@ -129,26 +133,62 @@ void Application::initialize()
         }
     });
 
-    m_taskRunning = true;
+    m_apiTaskRunning = true;
+
+    auto imageRequestTask = m_backgroundClient.request(web::http::methods::GET, background_image);
+
+    m_backgroundTask = imageRequestTask.then([](web::http::http_response response) {
+        auto logger = utility::get_logger();
+
+        logger->debug("Received response: {}", response.status_code());
+
+        if (response.status_code() != 200)
+        {
+            throw std::runtime_error("Request failed " + std::to_string(response.status_code()));
+        }
+
+        return response.extract_vector();
+    });
+
+    m_backgroundTaskRunning = true;
 }
 
 void Application::update()
 {
     auto logger = utility::get_logger();
 
-    if (m_taskRunning)
+    if (m_apiTaskRunning)
     {
         try
         {
-            if (m_task.is_done())
+            if (m_apiTask.is_done())
             {
-                logger->info("Request task completed successfully");
-                m_taskRunning = false;
+                logger->info("API request task completed successfully");
+                m_apiTaskRunning = false;
             }
         }
         catch (const std::exception& e)
         {
-            logger->error("Exception occurred while processing request: {}", e.what());
+            logger->error("Exception occurred while processing API request: {}", e.what());
+        }
+    }
+
+    if (m_backgroundTaskRunning)
+    {
+        try
+        {
+            if (m_backgroundTask.is_done())
+            {
+                logger->info("Background request task completed successfully");
+                auto data = m_backgroundTask.get();
+                logger->debug("Extracted {} bytes", data.size());
+
+                m_backgroundTaskRunning = false;
+            }
+        }
+        catch (const std::exception& e)
+        {
+            logger->error("Exception occurred while processing background request: {}", e.what());
         }
     }
 }

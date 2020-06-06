@@ -3,6 +3,8 @@
 #include <cpprest/http_client.h>
 #include <pplx/pplxtasks.h>
 
+#include <vector>
+
 class Application
 {
 public:
@@ -14,7 +16,10 @@ private:
     void initialize();
     void update();
 
-    web::http::client::http_client m_client;
-    pplx::task<void>               m_task;
-    bool                           m_taskRunning{false};
+    web::http::client::http_client         m_apiClient;
+    web::http::client::http_client         m_backgroundClient;
+    pplx::task<void>                       m_apiTask;
+    pplx::task<std::vector<unsigned char>> m_backgroundTask;
+    bool                                   m_apiTaskRunning{false};
+    bool                                   m_backgroundTaskRunning{false};
 };
