@@ -39,29 +39,33 @@ void Application::run()
 
     logger->info("Running application");
 
-    SDL_Window* window = nullptr;
-    SDL_Surface* screenSurface = nullptr;
-
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         logger->error("SDL could not initialize: {}", SDL_GetError());
     }
     else
     {
-        window = SDL_CreateWindow("DSS Exercise",
+        m_window = SDL_CreateWindow("DSS Exercise",
                                   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                   640, 480,
                                   SDL_WINDOW_SHOWN);
 
-        if (window == nullptr)
+        if (m_window == nullptr)
         {
             logger->error("Failed to create SDL window: {}", SDL_GetError());
         }
         else
         {
-            screenSurface = SDL_GetWindowSurface(window);
-            SDL_FillRect(screenSurface, nullptr, SDL_MapRGB(screenSurface->format, 128, 180, 64));
-            SDL_UpdateWindowSurface(window);
+            m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+
+            if (m_renderer == nullptr)
+            {
+                logger->error("Failed to create SDL renderer: {}", SDL_GetError());
+            }
+            else
+            {
+                SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+            }
 
             SDL_Event e;
             bool quit = false;
@@ -84,11 +88,17 @@ void Application::run()
                 }
 
                 update();
+
+                SDL_RenderClear(m_renderer);
+                SDL_RenderPresent(m_renderer);
             }
         }
     }
 
-    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(m_renderer);
+
+    SDL_DestroyWindow(m_window);
+
     SDL_Quit();
 }
 
