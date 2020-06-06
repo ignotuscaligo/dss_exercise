@@ -34,6 +34,7 @@ Source code: https://www.libsdl.org/download-2.0.php
 Install with brew
 ```
 $ brew install sdl2
+$ brew install sdl2_image
 ```
 
 ### Windows
@@ -41,6 +42,7 @@ $ brew install sdl2
 Install with vcpkg
 ```
 PS> vcpkg install sdl2 sdl2:x64-windows
+PS> vcpkg install sdl2-image sdl2-image:x64-windows
 ```
 
 ### Ubuntu
@@ -48,6 +50,7 @@ PS> vcpkg install sdl2 sdl2:x64-windows
 Install with apt
 ```
 $ sudo apt install libsdl2-dev
+$ sudo apt install libsdl2-image-dev
 ```
 
 ## spdlog
