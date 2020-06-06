@@ -99,9 +99,20 @@ void Application::run()
                 update();
 
                 SDL_RenderClear(m_renderer);
+
+                if (m_backgroundTexture != nullptr)
+                {
+                    SDL_RenderCopy(m_renderer, m_backgroundTexture, nullptr, nullptr);
+                }
+
                 SDL_RenderPresent(m_renderer);
             }
         }
+    }
+
+    if (m_backgroundTexture != nullptr)
+    {
+        SDL_DestroyTexture(m_backgroundTexture);
     }
 
     SDL_DestroyRenderer(m_renderer);
@@ -202,6 +213,24 @@ void Application::update()
                 logger->info("Background request task completed successfully");
                 auto data = m_backgroundTask.get();
                 logger->debug("Extracted {} bytes", data.size());
+
+                SDL_Surface* image = IMG_Load_RW(SDL_RWFromMem(data.data(), data.size()), 1);
+
+                if (image == nullptr)
+                {
+                    logger->error("Failed to create image from provided data: {}", IMG_GetError());
+                }
+                else
+                {
+                    m_backgroundTexture = SDL_CreateTextureFromSurface(m_renderer, image);
+
+                    if (m_backgroundTexture == nullptr)
+                    {
+                        logger->error("Failed to convert image to texture: {}", SDL_GetError());
+                    }
+
+                    SDL_FreeSurface(image);
+                }
 
                 m_backgroundTaskRunning = false;
             }
