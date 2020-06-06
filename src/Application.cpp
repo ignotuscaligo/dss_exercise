@@ -37,6 +37,8 @@ void Application::run()
             SDL_Event e;
             bool quit = false;
 
+            initialize();
+
             while (!quit)
             {
                 while (SDL_PollEvent(&e))
@@ -51,12 +53,18 @@ void Application::run()
                         quit = true;
                     }
                 }
+
+                update();
             }
         }
     }
 
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void Application::initialize()
+{
 }
 
 void Application::update()
