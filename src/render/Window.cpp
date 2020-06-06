@@ -14,7 +14,7 @@ Window::Window(const std::string& name, int width, int height)
 
     if (m_window == nullptr)
     {
-        throw std::runtime_error("Failed to create Window: " + std::string(SDL_GetError()));
+        throw std::runtime_error("Failed to create SDL window: " + std::string(SDL_GetError()));
     }
 }
 

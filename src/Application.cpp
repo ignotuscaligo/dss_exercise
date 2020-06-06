@@ -48,22 +48,14 @@ void Application::run()
         try
         {
             m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
+            m_renderer = std::make_shared<render::Renderer>(m_window);
         }
         catch (const std::runtime_error& e)
         {
-            logger->error("Failed to create SDL window: {}", e.what());
+            logger->error("Failed to initialize SDL objects: {}", e.what());
         }
 
-        m_renderer = SDL_CreateRenderer(m_window->handle(), -1, SDL_RENDERER_ACCELERATED);
-
-        if (m_renderer == nullptr)
-        {
-            logger->error("Failed to create SDL renderer: {}", SDL_GetError());
-        }
-        else
-        {
-            SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-        }
+        m_renderer->drawColor(0, 0, 0, 255);
 
         int imageInitFlags = IMG_INIT_JPG;
         int result = IMG_Init(imageInitFlags);
@@ -95,14 +87,14 @@ void Application::run()
 
             update();
 
-            SDL_RenderClear(m_renderer);
+            m_renderer->clear();
 
             if (m_backgroundTexture != nullptr)
             {
-                SDL_RenderCopy(m_renderer, m_backgroundTexture, nullptr, nullptr);
+                m_renderer->copy(m_backgroundTexture);
             }
 
-            SDL_RenderPresent(m_renderer);
+            m_renderer->present();
         }
     }
 
@@ -111,8 +103,7 @@ void Application::run()
         SDL_DestroyTexture(m_backgroundTexture);
     }
 
-    SDL_DestroyRenderer(m_renderer);
-
+    m_renderer.reset();
     m_window.reset();
 
     IMG_Quit();
@@ -219,7 +210,7 @@ void Application::update()
                 else
                 {
                     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-                    m_backgroundTexture = SDL_CreateTextureFromSurface(m_renderer, image);
+                    m_backgroundTexture = SDL_CreateTextureFromSurface(m_renderer->handle(), image);
 
                     if (m_backgroundTexture == nullptr)
                     {

@@ -28,6 +28,7 @@ target_sources(dss_exercise
         "src/utility/string.cpp"
         "src/utility/logging.cpp"
         "src/render/Window.cpp"
+        "src/render/Renderer.cpp"
 )
 
 if(WIN32)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "render/Window.h"
+#include "render/Renderer.h"
 
 #include <cpprest/http_client.h>
 #include <pplx/pplxtasks.h>
@@ -28,8 +29,8 @@ private:
     bool                                   m_apiTaskRunning{false};
     bool                                   m_backgroundTaskRunning{false};
 
-    std::shared_ptr<render::Window> m_window;
+    std::shared_ptr<render::Window>   m_window{nullptr};
+    std::shared_ptr<render::Renderer> m_renderer{nullptr};
 
-    SDL_Renderer* m_renderer{nullptr};
     SDL_Texture*  m_backgroundTexture{nullptr};
 };
