@@ -67,8 +67,8 @@ if(UNIX AND NOT APPLE)
 else()
     target_link_libraries(dss_exercise
         PRIVATE
-	    SDL2::SDL2
-	    SDL2::SDL2main
+            SDL2::SDL2
+            SDL2::SDL2main
     )
 endif()
 
