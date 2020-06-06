@@ -36,6 +36,24 @@ Install with vcpkg
 PS> vcpkg install sdl2 sdl2:x64-windows
 ```
 
+## spdlog
+
+Source code: https://github.com/gabime/spdlog
+
+### macOS
+
+Install with brew
+```
+$ brew install spdlog
+```
+
+### Windows
+
+Install with vcpkg
+```
+PS> vcpkg install spdlog spdlog:x64-windows
+```
+
 # Troubleshooting
 
 * `No rule to make target `/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework'`, or similar

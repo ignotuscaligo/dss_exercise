@@ -9,6 +9,7 @@ endif()
 
 find_package(cpprestsdk REQUIRED)
 find_package(SDL2       REQUIRED)
+find_package(spdlog     REQUIRED)
 
 if(WIN32)
     add_executable(dss_exercise WIN32)
@@ -26,6 +27,7 @@ target_link_libraries(dss_exercise
         cpprestsdk::cpprest
         SDL2::SDL2
         SDL2::SDL2main
+        spdlog::spdlog
 )
 
 target_compile_features(dss_exercise
