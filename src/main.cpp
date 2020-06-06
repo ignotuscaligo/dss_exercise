@@ -1,5 +1,7 @@
 #include "utility/string.h"
 
+#include "mlb/Game.h"
+
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
@@ -54,12 +56,8 @@ int main(int argc, char** argv)
 
             for (int i = 0; i < totalGames; i++)
             {
-                auto game = gamesList[i];
-                auto venue = game[U("venue")];
-
-                auto venueName = utility::as_std_string(venue[U("name")].as_string());
-
-                logger.debug("game {0} venue.name: {1}", i, venueName);
+                auto game = mlb::Game(gamesList[i]);
+                logger.debug("game {0} venue.name: {1}", i, game.venueName());
             }
         });
 

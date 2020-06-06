@@ -20,6 +20,7 @@ endif()
 target_sources(dss_exercise
     PRIVATE
         "src/main.cpp"
+        "src/mlb/Game.cpp"
         "src/utility/string.cpp"
 )
 
