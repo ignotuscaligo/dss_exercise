@@ -1,4 +1,5 @@
 #include "utility/string.h"
+#include "utility/logging.h"
 
 #include "mlb/Game.h"
 
@@ -7,10 +8,6 @@
 #include <cpprest/json.h>
 
 #include <SDL2/SDL.h>
-
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_sinks.h>
-#include <spdlog/sinks/msvc_sink.h>
 
 #include <exception>
 #include <memory>
@@ -23,9 +20,7 @@ const utility::string_t query_sport_id = U("1");
 
 int main(int argc, char** argv)
 {
-    auto msvcSink = std::make_shared<spdlog::sinks::msvc_sink_mt>();
-    auto stdoutSink = std::make_shared<spdlog::sinks::stdout_sink_mt>();
-    auto logger = spdlog::logger("logger", {msvcSink, stdoutSink});
+    auto logger = utility::create_logger();
 
     logger.set_level(spdlog::level::debug);
 

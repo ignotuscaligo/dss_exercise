@@ -22,7 +22,20 @@ target_sources(dss_exercise
         "src/main.cpp"
         "src/mlb/Game.cpp"
         "src/utility/string.cpp"
+        "src/utility/logging.cpp"
 )
+
+if(WIN32)
+    target_sources(dss_exercise
+        PRIVATE
+            "src/utility/logging_WIN32.cpp"
+    )
+else()
+    target_sources(dss_exercise
+        PRIVATE
+            "src/utility/logging_DEFAULT.cpp"
+    )
+endif()
 
 target_include_directories(dss_exercise
     PRIVATE
