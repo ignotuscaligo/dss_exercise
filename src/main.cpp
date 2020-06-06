@@ -22,8 +22,6 @@ int main(int argc, char** argv)
 {
     auto logger = utility::get_logger();
 
-    logger->set_level(spdlog::level::debug);
-
     logger->info("Hello, world!");
 
     logger->info("Test cpprestsdk");
