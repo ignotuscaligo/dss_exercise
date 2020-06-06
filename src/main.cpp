@@ -20,13 +20,13 @@ const utility::string_t query_sport_id = U("1");
 
 int main(int argc, char** argv)
 {
-    auto logger = utility::create_logger();
+    auto logger = utility::get_logger();
 
-    logger.set_level(spdlog::level::debug);
+    logger->set_level(spdlog::level::debug);
 
-    logger.info("Hello, world!");
+    logger->info("Hello, world!");
 
-    logger.info("Test cpprestsdk");
+    logger->info("Test cpprestsdk");
 
     auto requestJson = web::http::client::http_client(base_url)
         .request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
@@ -34,7 +34,7 @@ int main(int argc, char** argv)
                                                                         .append_query(U("sportId"), query_sport_id)
                                                                         .to_string())
         .then([&logger](web::http::http_response response) {
-            logger.debug("Received response: {}", response.status_code());
+            logger->debug("Received response: {}", response.status_code());
 
             if (response.status_code() != 200)
             {
@@ -47,12 +47,12 @@ int main(int argc, char** argv)
             auto totalGames = jsonObject[U("totalGames")].as_integer();
             auto gamesList = jsonObject[U("dates")][0][U("games")];
 
-            logger.debug("totalGames: {}", totalGames);
+            logger->debug("totalGames: {}", totalGames);
 
             for (int i = 0; i < totalGames; i++)
             {
                 auto game = mlb::Game(gamesList[i]);
-                logger.debug("game {0} venue.name: {1}", i, game.venueName());
+                logger->debug("game {0} venue.name: {1}", i, game.venueName());
             }
         });
 
@@ -62,17 +62,17 @@ int main(int argc, char** argv)
     }
     catch (const std::exception& e)
     {
-        logger.error("Exception occurred while processing request: {}", e.what());
+        logger->error("Exception occurred while processing request: {}", e.what());
     }
 
-    logger.info("Test SDL");
+    logger->info("Test SDL");
 
     SDL_Window* window = nullptr;
     SDL_Surface* screenSurface = nullptr;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        logger.error("SDL could not initialize: {}", SDL_GetError());
+        logger->error("SDL could not initialize: {}", SDL_GetError());
     }
     else
     {
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 
         if (window == nullptr)
         {
-            logger.error("Failed to create SDL window: {}", SDL_GetError());
+            logger->error("Failed to create SDL window: {}", SDL_GetError());
         }
         else
         {
@@ -115,7 +115,7 @@ int main(int argc, char** argv)
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    logger.info("Goodbye!");
+    logger->info("Goodbye!");
 
     return 0;
 }

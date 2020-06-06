@@ -9,9 +9,10 @@
 namespace utility
 {
 
+const std::string logger_name{"logger"};
 const std::string logging_file_path{"log.txt"};
 
-spdlog::logger create_logger()
+std::shared_ptr<spdlog::logger> create_logger()
 {
     auto loggingSinks = create_platform_sinks();
     auto stdoutSink   = std::make_shared<spdlog::sinks::stdout_sink_mt>();
@@ -20,7 +21,19 @@ spdlog::logger create_logger()
     loggingSinks.push_back(stdoutSink);
     loggingSinks.push_back(fileSink);
 
-    return spdlog::logger("logger", loggingSinks.begin(), loggingSinks.end());
+    return std::make_shared<spdlog::logger>(logger_name, loggingSinks.begin(), loggingSinks.end());
+}
+
+std::shared_ptr<spdlog::logger> get_logger()
+{
+    auto logger = spdlog::get(logger_name);
+
+    if (!logger)
+    {
+        logger = create_logger();
+    }
+
+    return logger;
 }
 
 }
