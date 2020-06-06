@@ -10,6 +10,7 @@
 #include <cpprest/json.h>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 namespace
 {
@@ -67,6 +68,14 @@ void Application::run()
                 SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
             }
 
+            int imageInitFlags = IMG_INIT_JPG;
+            int result = IMG_Init(imageInitFlags);
+
+            if ((result & imageInitFlags) != imageInitFlags)
+            {
+                logger->error("Failed to initialize image loading: {}", IMG_GetError());
+            }
+
             SDL_Event e;
             bool quit = false;
 
@@ -99,6 +108,7 @@ void Application::run()
 
     SDL_DestroyWindow(m_window);
 
+    IMG_Quit();
     SDL_Quit();
 }
 
