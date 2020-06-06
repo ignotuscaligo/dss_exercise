@@ -75,4 +75,3 @@ target_compile_features(dss_exercise
     PUBLIC
         cxx_std_11
 )
-
