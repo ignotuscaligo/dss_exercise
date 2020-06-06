@@ -10,8 +10,6 @@ endif()
 find_package(cpprestsdk REQUIRED)
 find_package(SDL2       REQUIRED)
 
-include_directories(${SDL2_INCLUDE_DIRS})
-
 add_executable(dss_exercise)
 
 target_sources(dss_exercise
@@ -22,7 +20,8 @@ target_sources(dss_exercise
 target_link_libraries(dss_exercise
     PRIVATE
         cpprestsdk::cpprest
-        ${SDL2_LIBRARIES}
+        SDL2::SDL2
+        SDL2::SDL2main
 )
 
 target_compile_features(dss_exercise

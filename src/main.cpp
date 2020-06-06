@@ -2,7 +2,7 @@
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include <exception>
 #include <iostream>
