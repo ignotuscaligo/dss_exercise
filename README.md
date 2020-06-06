@@ -4,16 +4,18 @@
 
 Source code: https://github.com/microsoft/cpprestsdk
 
-Taken from their directions:
+### macOS
 
-With [vcpkg](https://github.com/Microsoft/vcpkg) on Windows
-```
-PS> vcpkg install cpprestsdk cpprestsdk:x64-windows
-```
-
-With [brew](https://github.com/Homebrew/homebrew-core/blob/master/Formula/cpprestsdk.rb) on OSX
+Install with brew
 ```
 $ brew install cpprestsdk
+```
+
+### Windows
+
+Install with vcpkg
+```
+PS> vcpkg install cpprestsdk cpprestsdk:x64-windows
 ```
 
 ## SDL 2
@@ -25,6 +27,13 @@ Source code: https://www.libsdl.org/download-2.0.php
 Install with brew
 ```
 $ brew install sdl2
+```
+
+### Windows
+
+Install with vcpkg
+```
+PS> vcpkg install sdl2 sdl2:x64-windows
 ```
 
 # Troubleshooting
