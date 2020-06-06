@@ -34,5 +34,4 @@ private:
     std::shared_ptr<render::Context>  m_context{nullptr};
     std::shared_ptr<render::Window>   m_window{nullptr};
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
-    std::shared_ptr<render::Texture>  m_backgroundTexture{nullptr};
 };

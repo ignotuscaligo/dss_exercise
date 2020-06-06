@@ -13,6 +13,11 @@ namespace render
 
 Texture::Texture(std::shared_ptr<Renderer> renderer, std::vector<unsigned char>& bytes)
 {
+    Texture(renderer.get(), bytes);
+}
+
+Texture::Texture(Renderer* renderer, std::vector<unsigned char>& bytes)
+{
     SDL_Surface* image = IMG_Load_RW(SDL_RWFromMem(bytes.data(), bytes.size()), 1);
 
     if (image == nullptr)

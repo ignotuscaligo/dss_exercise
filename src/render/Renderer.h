@@ -1,6 +1,9 @@
 #pragma once
 
 #include <memory>
+#include <map>
+#include <vector>
+#include <string>
 
 class SDL_Renderer;
 
@@ -22,10 +25,14 @@ public:
     void clear();
     void present();
 
+    std::shared_ptr<Texture> createTexture(const std::string& name, std::vector<unsigned char>& bytes);
+    std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
     void fillTexture(std::shared_ptr<Texture> texture);
 
 private:
     SDL_Renderer* m_renderer{nullptr};
+
+    std::map<std::string, std::shared_ptr<Texture>> m_textures;
 };
 
 }

@@ -14,6 +14,7 @@ class Texture
 {
 public:
     Texture(std::shared_ptr<Renderer> renderer, std::vector<unsigned char>& bytes);
+    Texture(Renderer* renderer, std::vector<unsigned char>& bytes);
     ~Texture();
 
     SDL_Texture* handle() const;

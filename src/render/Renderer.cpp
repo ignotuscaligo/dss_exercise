@@ -23,6 +23,8 @@ Renderer::Renderer(std::shared_ptr<Window> window)
 
 Renderer::~Renderer()
 {
+    m_textures.clear();
+
     SDL_DestroyRenderer(m_renderer);
 }
 
@@ -44,6 +46,28 @@ void Renderer::clear()
 void Renderer::present()
 {
     SDL_RenderPresent(m_renderer);
+}
+
+std::shared_ptr<Texture> Renderer::createTexture(const std::string& name, std::vector<unsigned char>& bytes)
+{
+    auto texture = std::make_shared<Texture>(this, bytes);
+
+    m_textures[name] = texture;
+
+    return texture;
+}
+
+std::shared_ptr<Texture> Renderer::fetchTexture(const std::string& name) const
+{
+    auto texture = m_textures.find(name);
+    if (texture != m_textures.end())
+    {
+        return texture->second;
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 void Renderer::fillTexture(std::shared_ptr<Texture> texture)

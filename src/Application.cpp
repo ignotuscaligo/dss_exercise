@@ -76,15 +76,16 @@ void Application::run()
 
         m_renderer->clear();
 
-        if (m_backgroundTexture)
+        auto background = m_renderer->fetchTexture("background");
+
+        if (background)
         {
-            m_renderer->fillTexture(m_backgroundTexture);
+            m_renderer->fillTexture(background);
         }
 
         m_renderer->present();
     }
 
-    m_backgroundTexture.reset();
     m_renderer.reset();
     m_window.reset();
     m_context.reset();
@@ -181,7 +182,7 @@ void Application::update()
                 auto data = m_backgroundTask.get();
                 logger->debug("Extracted {} bytes", data.size());
 
-                m_backgroundTexture = std::make_shared<render::Texture>(m_renderer, data);
+                m_renderer->createTexture("background", data);
 
                 m_backgroundTaskRunning = false;
             }
