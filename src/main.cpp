@@ -1,3 +1,5 @@
+#include "utility/string.h"
+
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
@@ -10,28 +12,12 @@
 
 #include <exception>
 #include <memory>
-#include <locale>
-#include <codecvt>
 
 const utility::string_t base_url       = U("http://statsapi.mlb.com");
 const utility::string_t api_schedule   = U("api/v1/schedule");
 const utility::string_t query_hydrate  = U("game(content(editorial(recap))),decisions");
 const utility::string_t query_date     = U("2018-06-10");
 const utility::string_t query_sport_id = U("1");
-
-std::string as_std_string(std::wstring input)
-{
-    using convert_type = std::codecvt_utf8<wchar_t>;
-
-    std::wstring_convert<convert_type, wchar_t> converter;
-
-    return converter.to_bytes(input);
-}
-
-std::string as_std_string(std::string input)
-{
-    return input;
-}
 
 int main(int argc, char** argv)
 {
@@ -71,7 +57,7 @@ int main(int argc, char** argv)
                 auto game = gamesList[i];
                 auto venue = game[U("venue")];
 
-                auto venueName = as_std_string(venue[U("name")].as_string());
+                auto venueName = utility::as_std_string(venue[U("name")].as_string());
 
                 logger.debug("game {0} venue.name: {1}", i, venueName);
             }

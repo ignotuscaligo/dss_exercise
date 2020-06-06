@@ -20,6 +20,12 @@ endif()
 target_sources(dss_exercise
     PRIVATE
         "src/main.cpp"
+        "src/utility/string.cpp"
+)
+
+target_include_directories(dss_exercise
+    PRIVATE
+        "src/"
 )
 
 target_link_libraries(dss_exercise
