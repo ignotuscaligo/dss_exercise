@@ -222,6 +222,7 @@ void Application::update()
                 }
                 else
                 {
+                    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
                     m_backgroundTexture = SDL_CreateTextureFromSurface(m_renderer, image);
 
                     if (m_backgroundTexture == nullptr)
