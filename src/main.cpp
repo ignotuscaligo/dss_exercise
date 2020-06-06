@@ -4,8 +4,14 @@
 
 #include <SDL2/SDL.h>
 
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_sinks.h>
+#include <spdlog/sinks/msvc_sink.h>
+
 #include <exception>
-#include <iostream>
+#include <memory>
+#include <locale>
+#include <codecvt>
 
 const utility::string_t base_url       = U("http://statsapi.mlb.com");
 const utility::string_t api_schedule   = U("api/v1/schedule");
@@ -13,19 +19,40 @@ const utility::string_t query_hydrate  = U("game(content(editorial(recap))),deci
 const utility::string_t query_date     = U("2018-06-10");
 const utility::string_t query_sport_id = U("1");
 
+std::string as_std_string(std::wstring input)
+{
+    using convert_type = std::codecvt_utf8<wchar_t>;
+
+    std::wstring_convert<convert_type, wchar_t> converter;
+
+    return converter.to_bytes(input);
+}
+
+std::string as_std_string(std::string input)
+{
+    return input;
+}
+
 int main(int argc, char** argv)
 {
-    std::cout << "Hello, world!\n";
+    auto msvcSink = std::make_shared<spdlog::sinks::msvc_sink_mt>();
+    auto stdoutSink = std::make_shared<spdlog::sinks::stdout_sink_mt>();
+    auto logger = spdlog::logger("logger", {msvcSink, stdoutSink});
 
-    std::cout << "Test cpprestsdk\n";
+    logger.set_level(spdlog::level::debug);
+
+    logger.info("Hello, world!");
+
+    logger.info("Test cpprestsdk");
 
     auto requestJson = web::http::client::http_client(base_url)
         .request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
                                                                         .append_query(U("date"), query_date)
                                                                         .append_query(U("sportId"), query_sport_id)
                                                                         .to_string())
-        .then([](web::http::http_response response) {
-            std::cout << "Received response: " << response.status_code() << "\n";
+        .then([&logger](web::http::http_response response) {
+            logger.debug("Received response: {}", response.status_code());
+
             if (response.status_code() != 200)
             {
                 throw std::runtime_error("Request failed " + std::to_string(response.status_code()));
@@ -33,18 +60,20 @@ int main(int argc, char** argv)
 
             return response.extract_json();
         })
-        .then([](web::json::value jsonObject) {
+        .then([&logger](web::json::value jsonObject) {
             auto totalGames = jsonObject[U("totalGames")].as_integer();
             auto gamesList = jsonObject[U("dates")][0][U("games")];
 
-            std::cout << "totalGames: " << totalGames << "\n";
+            logger.debug("totalGames: {}", totalGames);
 
             for (int i = 0; i < totalGames; i++)
             {
                 auto game = gamesList[i];
                 auto venue = game[U("venue")];
 
-                std::cout << "game " << i << " venue.name: " << venue[U("name")].as_string() << "\n";
+                auto venueName = as_std_string(venue[U("name")].as_string());
+
+                logger.debug("game {0} venue.name: {1}", i, venueName);
             }
         });
 
@@ -54,17 +83,17 @@ int main(int argc, char** argv)
     }
     catch (const std::exception& e)
     {
-        std::cout << "Exception occurred while processing request: " << e.what() << "\n";
+        logger.error("Exception occurred while processing request: {}", e.what());
     }
 
-    std::cout << "Test SDL\n";
+    logger.info("Test SDL");
 
     SDL_Window* window = nullptr;
     SDL_Surface* screenSurface = nullptr;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-        std::cout << "SDL could not initialize: " << SDL_GetError() << "\n";
+        logger.error("SDL could not initialize: {}", SDL_GetError());
     }
     else
     {
@@ -75,7 +104,7 @@ int main(int argc, char** argv)
 
         if (window == nullptr)
         {
-            std::cout << "Failed to create SDL window: " << SDL_GetError() << "\n";
+            logger.error("Failed to create SDL window: {}", SDL_GetError());
         }
         else
         {
@@ -107,7 +136,7 @@ int main(int argc, char** argv)
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    std::cout << "Goodbye!\n";
+    logger.info("Goodbye!");
 
     return 0;
 }
