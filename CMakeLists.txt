@@ -7,8 +7,11 @@ if(APPLE)
     set(OPENSSL_LIBRARIES /usr/local/opt/openssl/lib)
 endif()
 
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
 find_package(cpprestsdk REQUIRED)
 find_package(SDL2       REQUIRED)
+find_package(SDL2_image REQUIRED)
 find_package(spdlog     REQUIRED)
 
 if(WIN32)
@@ -69,6 +72,7 @@ else()
         PRIVATE
             SDL2::SDL2
             SDL2::SDL2main
+            SDL2::SDL2_image
     )
 endif()
 

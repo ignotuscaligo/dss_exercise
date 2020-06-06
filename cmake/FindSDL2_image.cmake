@@ -1,0 +1,15 @@
+if(NOT TARGET SDL2::SDL2_image)
+    find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h")
+    find_library(SDL2_IMAGE_LIB "SDL2_image")
+
+    get_filename_component(SLD2_IMAGE_LIB_DIR ${SDL2_IMAGE_LIB} DIRECTORY)
+
+    add_library(SDL2::SDL2_image SHARED IMPORTED)
+    set_target_properties(SDL2::SDL2_image
+        PROPERTIES
+            INTERFACE_INCLUDE_DIRECTORIES "${SDL2_IMAGE_INCLUDE_DIR}"
+            IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+            IMPORTED_LOCATION "${SLD2_IMAGE_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}SDL2_image${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            INTERFACE_LINK_LIBRARIES "${SDL2_EXTRA_LINK_FLAGS}"
+    )
+endif()
