@@ -27,6 +27,7 @@ target_sources(dss_exercise
         "src/mlb/Game.cpp"
         "src/utility/string.cpp"
         "src/utility/logging.cpp"
+        "src/render/Window.cpp"
 )
 
 if(WIN32)

@@ -45,67 +45,64 @@ void Application::run()
     }
     else
     {
-        m_window = SDL_CreateWindow("DSS Exercise",
-                                  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                  1280, 720,
-                                  SDL_WINDOW_SHOWN);
-
-        if (m_window == nullptr)
+        try
         {
-            logger->error("Failed to create SDL window: {}", SDL_GetError());
+            m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
+        }
+        catch (const std::runtime_error& e)
+        {
+            logger->error("Failed to create SDL window: {}", e.what());
+        }
+
+        m_renderer = SDL_CreateRenderer(m_window->handle(), -1, SDL_RENDERER_ACCELERATED);
+
+        if (m_renderer == nullptr)
+        {
+            logger->error("Failed to create SDL renderer: {}", SDL_GetError());
         }
         else
         {
-            m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+            SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+        }
 
-            if (m_renderer == nullptr)
+        int imageInitFlags = IMG_INIT_JPG;
+        int result = IMG_Init(imageInitFlags);
+
+        if ((result & imageInitFlags) != imageInitFlags)
+        {
+            logger->error("Failed to initialize image loading: {}", IMG_GetError());
+        }
+
+        SDL_Event e;
+        bool quit = false;
+
+        initialize();
+
+        while (!quit)
+        {
+            while (SDL_PollEvent(&e))
             {
-                logger->error("Failed to create SDL renderer: {}", SDL_GetError());
-            }
-            else
-            {
-                SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-            }
-
-            int imageInitFlags = IMG_INIT_JPG;
-            int result = IMG_Init(imageInitFlags);
-
-            if ((result & imageInitFlags) != imageInitFlags)
-            {
-                logger->error("Failed to initialize image loading: {}", IMG_GetError());
-            }
-
-            SDL_Event e;
-            bool quit = false;
-
-            initialize();
-
-            while (!quit)
-            {
-                while (SDL_PollEvent(&e))
+                if (e.type == SDL_QUIT)
                 {
-                    if (e.type == SDL_QUIT)
-                    {
-                        quit = true;
-                    }
-
-                    if (e.type == SDL_KEYDOWN)
-                    {
-                        quit = true;
-                    }
+                    quit = true;
                 }
 
-                update();
-
-                SDL_RenderClear(m_renderer);
-
-                if (m_backgroundTexture != nullptr)
+                if (e.type == SDL_KEYDOWN)
                 {
-                    SDL_RenderCopy(m_renderer, m_backgroundTexture, nullptr, nullptr);
+                    quit = true;
                 }
-
-                SDL_RenderPresent(m_renderer);
             }
+
+            update();
+
+            SDL_RenderClear(m_renderer);
+
+            if (m_backgroundTexture != nullptr)
+            {
+                SDL_RenderCopy(m_renderer, m_backgroundTexture, nullptr, nullptr);
+            }
+
+            SDL_RenderPresent(m_renderer);
         }
     }
 
@@ -116,7 +113,7 @@ void Application::run()
 
     SDL_DestroyRenderer(m_renderer);
 
-    SDL_DestroyWindow(m_window);
+    m_window.reset();
 
     IMG_Quit();
     SDL_Quit();

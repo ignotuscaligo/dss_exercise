@@ -1,10 +1,13 @@
 #pragma once
 
+#include "render/Window.h"
+
 #include <cpprest/http_client.h>
 #include <pplx/pplxtasks.h>
 
 #include <SDL2/SDL.h>
 
+#include <memory>
 #include <vector>
 
 class Application
@@ -25,7 +28,8 @@ private:
     bool                                   m_apiTaskRunning{false};
     bool                                   m_backgroundTaskRunning{false};
 
-    SDL_Window*   m_window{nullptr};
+    std::shared_ptr<render::Window> m_window;
+
     SDL_Renderer* m_renderer{nullptr};
     SDL_Texture*  m_backgroundTexture{nullptr};
 };
