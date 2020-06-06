@@ -48,7 +48,7 @@ void Application::run()
     {
         m_window = SDL_CreateWindow("DSS Exercise",
                                   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                  640, 480,
+                                  1280, 720,
                                   SDL_WINDOW_SHOWN);
 
         if (m_window == nullptr)
