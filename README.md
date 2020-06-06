@@ -18,6 +18,13 @@ Install with vcpkg
 PS> vcpkg install cpprestsdk cpprestsdk:x64-windows
 ```
 
+### Ubuntu
+
+Install with apt
+```
+$ sudo apt install libcpprest-dev
+```
+
 ## SDL 2
 
 Source code: https://www.libsdl.org/download-2.0.php
@@ -36,6 +43,13 @@ Install with vcpkg
 PS> vcpkg install sdl2 sdl2:x64-windows
 ```
 
+### Ubuntu
+
+Install with apt
+```
+$ sudo apt install libsdl2-dev
+```
+
 ## spdlog
 
 Source code: https://github.com/gabime/spdlog
@@ -52,6 +66,13 @@ $ brew install spdlog
 Install with vcpkg
 ```
 PS> vcpkg install spdlog spdlog:x64-windows
+```
+
+### Ubuntu
+
+Install with apt
+```
+$ sudo apt install libspdlog-dev
 ```
 
 # Troubleshooting
