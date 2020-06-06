@@ -1,5 +1,8 @@
 #include "utility/string.h"
 
+#include <locale>
+#include <codecvt>
+
 namespace utility
 {
 
@@ -18,3 +21,4 @@ std::string as_std_string(std::string input)
 }
 
 }
+
