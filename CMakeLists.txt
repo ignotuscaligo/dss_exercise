@@ -10,7 +10,11 @@ endif()
 find_package(cpprestsdk REQUIRED)
 find_package(SDL2       REQUIRED)
 
-add_executable(dss_exercise)
+if(WIN32)
+    add_executable(dss_exercise WIN32)
+else()
+    add_executable(dss_exercise)
+endif()
 
 target_sources(dss_exercise
     PRIVATE
