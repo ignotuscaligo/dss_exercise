@@ -113,6 +113,14 @@ void Application::update()
                 for (auto game : games)
                 {
                     logger->debug("game headline: {}", game.headline());
+                    logger->debug("game imageUrl: {}", game.imageUrl());
+
+                    auto imageUrl = game.imageUrl();
+
+                    if (!imageUrl.empty())
+                    {
+                        m_tasks.requestImageForRenderer(game.headline(), imageUrl, m_renderer);
+                    }
                 }
 
                 m_gamesTaskRunning = false;
