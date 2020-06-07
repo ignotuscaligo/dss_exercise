@@ -14,13 +14,11 @@
 namespace
 {
 
-const utility::string_t mlb_images_url   = U("http://mlb.mlb.com/mlb/images");
-const utility::string_t background_image = U("devices/ballpark/1920x1080/1.jpg");
+const utility::string_t background_image_url = U("http://mlb.mlb.com/mlb/images/devices/ballpark/1920x1080/1.jpg");
 
 }
 
 Application::Application()
-: m_backgroundClient(mlb_images_url)
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
@@ -94,27 +92,14 @@ void Application::initialize()
     m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
     m_gamesTaskRunning = true;
 
-    auto imageRequestTask = m_backgroundClient.request(web::http::methods::GET, background_image);
-
-    m_backgroundTask = imageRequestTask.then([](web::http::http_response response) {
-        auto logger = utility::get_logger();
-
-        logger->debug("Received response: {}", response.status_code());
-
-        if (response.status_code() != 200)
-        {
-            throw std::runtime_error("Request failed " + std::to_string(response.status_code()));
-        }
-
-        return response.extract_vector();
-    });
-
-    m_backgroundTaskRunning = true;
+    m_tasks.requestImageForRenderer("background", background_image_url, m_renderer);
 }
 
 void Application::update()
 {
     auto logger = utility::get_logger();
+
+    m_tasks.clearCompletedTasks();
 
     if (m_gamesTaskRunning)
     {
@@ -136,27 +121,6 @@ void Application::update()
         catch (const std::exception& e)
         {
             logger->error("Exception occurred while processing games request: {}", e.what());
-        }
-    }
-
-    if (m_backgroundTaskRunning)
-    {
-        try
-        {
-            if (m_backgroundTask.is_done())
-            {
-                logger->info("Background request task completed successfully");
-                auto data = m_backgroundTask.get();
-                logger->debug("Extracted {} bytes", data.size());
-
-                m_renderer->createTexture("background", data);
-
-                m_backgroundTaskRunning = false;
-            }
-        }
-        catch (const std::exception& e)
-        {
-            logger->error("Exception occurred while processing background request: {}", e.what());
         }
     }
 }

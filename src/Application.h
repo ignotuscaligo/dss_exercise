@@ -8,7 +8,8 @@
 #include "mlb/Stats.h"
 #include "mlb/Game.h"
 
-#include <cpprest/http_client.h>
+#include "rest/Tasks.h"
+
 #include <pplx/pplxtasks.h>
 
 #include <SDL2/SDL.h>
@@ -27,13 +28,11 @@ private:
     void initialize();
     void update();
 
-    web::http::client::http_client         m_backgroundClient;
-    pplx::task<std::vector<mlb::Game>>     m_gamesTask;
-    pplx::task<std::vector<unsigned char>> m_backgroundTask;
-    bool                                   m_gamesTaskRunning{false};
-    bool                                   m_backgroundTaskRunning{false};
+    pplx::task<std::vector<mlb::Game>> m_gamesTask;
+    bool                               m_gamesTaskRunning{false};
 
-    mlb::Stats m_stats;
+    mlb::Stats  m_stats;
+    rest::Tasks m_tasks;
 
     std::shared_ptr<render::Context>  m_context{nullptr};
     std::shared_ptr<render::Window>   m_window{nullptr};
