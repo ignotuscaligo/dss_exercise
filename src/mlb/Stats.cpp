@@ -44,12 +44,13 @@ pplx::task<std::vector<Game>> Stats::requestCurrentGames()
 
 pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::tm* date)
 {
-    auto logger = utility::get_logger();
+    return requestGamesForDate(query_string_from_date(date));
+}
 
-    auto dateQuery = query_string_from_date(date);
-
+pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::string date)
+{
     auto uri = web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
-                                             .append_query(U("date"), dateQuery)
+                                             .append_query(U("date"), date)
                                              .append_query(U("sportId"), query_sport_id)
                                              .to_string();
 

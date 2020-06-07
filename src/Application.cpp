@@ -90,7 +90,7 @@ void Application::initialize()
 
     logger->info("Starting cpprestsdk task");
 
-    m_gamesTask = m_stats.requestCurrentGames();
+    m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
     m_gamesTaskRunning = true;
 
     auto imageRequestTask = m_backgroundClient.request(web::http::methods::GET, background_image);
