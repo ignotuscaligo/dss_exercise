@@ -33,6 +33,8 @@ target_sources(dss_exercise
         "src/render/Texture.cpp"
         "src/render/Context.cpp"
         "src/rest/Tasks.cpp"
+        "src/ui/Vector2.cpp"
+        "src/ui/Item.cpp"
 )
 
 if(WIN32)
