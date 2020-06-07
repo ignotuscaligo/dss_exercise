@@ -128,7 +128,7 @@ void Application::initialize()
         for (int i = 0; i < totalGames; i++)
         {
             auto game = mlb::Game(gamesList[i]);
-            logger->debug("game {0} venue.name: {1}", i, game.venueName());
+            logger->debug("game {0} headline: {1}", i, game.headline());
         }
     });
 
