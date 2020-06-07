@@ -7,6 +7,8 @@
 
 class SDL_Renderer;
 
+namespace ui { class Rect; }
+
 namespace render
 {
 
@@ -28,6 +30,7 @@ public:
     std::shared_ptr<Texture> createTexture(const std::string& name, std::vector<unsigned char>& bytes);
     std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
     void fillTexture(std::shared_ptr<Texture> texture);
+    void drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect);
 
 private:
     SDL_Renderer* m_renderer{nullptr};

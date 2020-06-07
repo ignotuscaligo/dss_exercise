@@ -3,6 +3,8 @@
 #include "render/Window.h"
 #include "render/Texture.h"
 
+#include "ui/Rect.h"
+
 #include <SDL2/SDL.h>
 
 #include <exception>
@@ -73,6 +75,18 @@ std::shared_ptr<Texture> Renderer::fetchTexture(const std::string& name) const
 void Renderer::fillTexture(std::shared_ptr<Texture> texture)
 {
     SDL_RenderCopy(m_renderer, texture->handle(), nullptr, nullptr);
+}
+
+void Renderer::drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect)
+{
+    SDL_FRect imageRect = {
+        rect.x(),
+        rect.y(),
+        rect.width(),
+        rect.height()
+    };
+
+    SDL_RenderCopyF(m_renderer, texture->handle(), nullptr, &imageRect);
 }
 
 }
