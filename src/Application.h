@@ -5,6 +5,9 @@
 #include "render/Texture.h"
 #include "render/Context.h"
 
+#include "mlb/Stats.h"
+#include "mlb/Game.h"
+
 #include <cpprest/http_client.h>
 #include <pplx/pplxtasks.h>
 
@@ -24,12 +27,13 @@ private:
     void initialize();
     void update();
 
-    web::http::client::http_client         m_apiClient;
     web::http::client::http_client         m_backgroundClient;
-    pplx::task<void>                       m_apiTask;
+    pplx::task<std::vector<mlb::Game>>     m_gamesTask;
     pplx::task<std::vector<unsigned char>> m_backgroundTask;
-    bool                                   m_apiTaskRunning{false};
+    bool                                   m_gamesTaskRunning{false};
     bool                                   m_backgroundTaskRunning{false};
+
+    mlb::Stats m_stats;
 
     std::shared_ptr<render::Context>  m_context{nullptr};
     std::shared_ptr<render::Window>   m_window{nullptr};

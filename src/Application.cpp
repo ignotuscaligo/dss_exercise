@@ -14,20 +14,13 @@
 namespace
 {
 
-const utility::string_t statsapi_url   = U("http://statsapi.mlb.com");
-const utility::string_t api_schedule   = U("api/v1/schedule");
-const utility::string_t query_hydrate  = U("game(content(editorial(recap))),decisions");
-const utility::string_t query_date     = U("2018-06-10");
-const utility::string_t query_sport_id = U("1");
-
 const utility::string_t mlb_images_url   = U("http://mlb.mlb.com/mlb/images");
 const utility::string_t background_image = U("devices/ballpark/1920x1080/1.jpg");
 
 }
 
 Application::Application()
-: m_apiClient(statsapi_url)
-, m_backgroundClient(mlb_images_url)
+: m_backgroundClient(mlb_images_url)
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
@@ -97,42 +90,8 @@ void Application::initialize()
 
     logger->info("Starting cpprestsdk task");
 
-    auto apiRequestTask = m_apiClient.request(web::http::methods::GET, web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
-                                                                                                     .append_query(U("date"), query_date)
-                                                                                                     .append_query(U("sportId"), query_sport_id)
-                                                                                                     .to_string());
-
-    auto jsonTask = apiRequestTask.then([](web::http::http_response response) {
-        auto logger = utility::get_logger();
-
-        logger->debug("Received response: {}", response.status_code());
-
-        if (response.status_code() != 200)
-        {
-            throw std::runtime_error("Request failed " + std::to_string(response.status_code()));
-        }
-
-        return response.extract_json();
-    });
-
-    m_apiTask = jsonTask.then([](web::json::value jsonObject) {
-        auto logger = utility::get_logger();
-
-        logger->debug("Processing extracted JSON");
-
-        auto totalGames = jsonObject[U("totalGames")].as_integer();
-        auto gamesList = jsonObject[U("dates")][0][U("games")];
-
-        logger->debug("totalGames: {}", totalGames);
-
-        for (int i = 0; i < totalGames; i++)
-        {
-            auto game = mlb::Game(gamesList[i]);
-            logger->debug("game {0} headline: {1}", i, game.headline());
-        }
-    });
-
-    m_apiTaskRunning = true;
+    m_gamesTask = m_stats.requestCurrentGames();
+    m_gamesTaskRunning = true;
 
     auto imageRequestTask = m_backgroundClient.request(web::http::methods::GET, background_image);
 
@@ -156,19 +115,26 @@ void Application::update()
 {
     auto logger = utility::get_logger();
 
-    if (m_apiTaskRunning)
+    if (m_gamesTaskRunning)
     {
         try
         {
-            if (m_apiTask.is_done())
+            if (m_gamesTask.is_done())
             {
-                logger->info("API request task completed successfully");
-                m_apiTaskRunning = false;
+                logger->info("Games task completed successfully");
+                auto games = m_gamesTask.get();
+
+                for (auto game : games)
+                {
+                    logger->debug("game headline: {}", game.headline());
+                }
+
+                m_gamesTaskRunning = false;
             }
         }
         catch (const std::exception& e)
         {
-            logger->error("Exception occurred while processing API request: {}", e.what());
+            logger->error("Exception occurred while processing games request: {}", e.what());
         }
     }
 

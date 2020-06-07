@@ -25,6 +25,7 @@ target_sources(dss_exercise
         "src/main.cpp"
         "src/Application.cpp"
         "src/mlb/Game.cpp"
+        "src/mlb/Stats.cpp"
         "src/utility/string.cpp"
         "src/utility/logging.cpp"
         "src/render/Window.cpp"
