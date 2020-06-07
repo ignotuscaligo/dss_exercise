@@ -10,6 +10,8 @@
 
 #include "rest/Tasks.h"
 
+#include "ui/Item.h"
+
 #include <pplx/pplxtasks.h>
 
 #include <SDL2/SDL.h>
@@ -37,4 +39,6 @@ private:
     std::shared_ptr<render::Context>  m_context{nullptr};
     std::shared_ptr<render::Window>   m_window{nullptr};
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
+
+    ui::ItemPtr m_testItem;
 };

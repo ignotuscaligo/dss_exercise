@@ -5,6 +5,8 @@
 
 #include "mlb/Game.h"
 
+#include "ui/Rect.h"
+
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
@@ -19,9 +21,18 @@ const utility::string_t background_image_url = U("http://mlb.mlb.com/mlb/images/
 }
 
 Application::Application()
+: m_testItem(std::make_shared<ui::Item>())
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
+
+    m_testItem->position({10, 10});
+    m_testItem->size({100, 100});
+
+    ui::Rect rect = m_testItem->drawRect();
+
+    logger->debug("position: {}, {}", m_testItem->position().x, m_testItem->position().y);
+    logger->debug("rect: {}, {}, {}, {}", rect.left, rect.right, rect.top, rect.bottom);
 }
 
 void Application::run()
