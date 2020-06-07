@@ -27,7 +27,7 @@ Application::Application()
     logger->info("Creating application");
 
     m_testItem->position({10, 10});
-    m_testItem->size({100, 100});
+    m_testItem->size({248, 138});
 
     ui::Rect rect = m_testItem->drawRect();
 
@@ -83,6 +83,15 @@ void Application::run()
         if (background)
         {
             m_renderer->fillTexture(background);
+        }
+
+        auto testImage = m_renderer->fetchTexture("Nats, unfazed by Rays' strategy, cruise to win");
+
+        if (testImage)
+        {
+            ui::Rect imageRect = m_testItem->drawRect();
+
+            m_renderer->drawTexture(testImage, imageRect);
         }
 
         m_renderer->present();
