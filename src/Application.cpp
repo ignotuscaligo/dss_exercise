@@ -53,8 +53,6 @@ void Application::run()
         return;
     }
 
-    m_renderer->drawColor(0, 0, 0, 255);
-
     SDL_Event e;
     bool quit = false;
 
@@ -77,6 +75,7 @@ void Application::run()
 
         update();
 
+        m_renderer->drawColor(0, 0, 0, 255);
         m_renderer->clear();
 
         auto background = m_renderer->fetchTexture("background");
