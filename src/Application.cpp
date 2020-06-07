@@ -32,7 +32,7 @@ Application::Application()
     ui::Rect rect = m_testItem->drawRect();
 
     logger->debug("position: {}, {}", m_testItem->position().x, m_testItem->position().y);
-    logger->debug("rect: {}, {}, {}, {}", rect.left, rect.right, rect.top, rect.bottom);
+    logger->debug("rect: {}, {}, {}, {}", rect.left(), rect.right(), rect.top(), rect.bottom());
 }
 
 void Application::run()

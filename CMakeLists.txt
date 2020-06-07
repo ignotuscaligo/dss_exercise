@@ -34,6 +34,7 @@ target_sources(dss_exercise
         "src/render/Context.cpp"
         "src/rest/Tasks.cpp"
         "src/ui/Vector2.cpp"
+        "src/ui/Rect.cpp"
         "src/ui/Item.cpp"
 )
 

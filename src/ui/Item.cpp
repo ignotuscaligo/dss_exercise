@@ -65,12 +65,7 @@ Rect Item::drawRect() const
     Vector2 anchorOffset = drawSize * -m_anchor;
     Vector2 drawPosition = m_position + anchorOffset;
 
-    return {
-        drawPosition.x,
-        drawPosition.x + drawSize.x,
-        drawPosition.y,
-        drawPosition.y + drawSize.y
-    };
+    return {drawPosition, drawSize};
 }
 
 }
