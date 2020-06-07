@@ -35,6 +35,7 @@ Install with brew
 ```
 $ brew install sdl2
 $ brew install sdl2_image
+$ brew install sdl2_gfx
 ```
 
 ### Windows
@@ -43,6 +44,7 @@ Install with vcpkg
 ```
 PS> vcpkg install sdl2 sdl2:x64-windows
 PS> vcpkg install sdl2-image sdl2-image:x64-windows
+PS> vcpkg install sdl2-gfx sdl2-gfx:x64-windows
 ```
 
 ### Ubuntu
@@ -51,6 +53,7 @@ Install with apt
 ```
 $ sudo apt install libsdl2-dev
 $ sudo apt install libsdl2-image-dev
+$ sudo apt install libsdl2-gfx-dev
 ```
 
 ## spdlog
