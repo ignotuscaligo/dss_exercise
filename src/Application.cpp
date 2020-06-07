@@ -41,6 +41,7 @@ void Application::run()
     catch (const std::runtime_error& e)
     {
         logger->error("Failed to initialize SDL objects: {}", e.what());
+        return;
     }
 
     m_renderer->drawColor(0, 0, 0, 255);
