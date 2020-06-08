@@ -23,3 +23,11 @@ ui::Vector2 operator-(ui::Vector2 a)
         -a.y
     };
 }
+
+ui::Vector2 operator*(ui::Vector2 a, float b)
+{
+    return {
+        a.x * b,
+        a.y * b
+    };
+}

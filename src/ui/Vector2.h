@@ -14,3 +14,5 @@ struct Vector2
 ui::Vector2 operator+(ui::Vector2 a, ui::Vector2 b);
 ui::Vector2 operator*(ui::Vector2 a, ui::Vector2 b);
 ui::Vector2 operator-(ui::Vector2 a);
+
+ui::Vector2 operator*(ui::Vector2 a, float b);
