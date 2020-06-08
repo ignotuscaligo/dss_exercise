@@ -52,7 +52,7 @@ void ViewController::populateGames(std::vector<mlb::Game> games)
 
         std::shared_ptr<ui::GameItem> item = std::make_shared<ui::GameItem>();
 
-        item->size({123, 69});
+        item->size({89, 50});
         item->game(game);
 
         m_gameItems.push_back(item);

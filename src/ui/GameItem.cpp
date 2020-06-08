@@ -21,12 +21,12 @@ GameItem::GameItem()
     m_outline->enabled(m_selected);
 
     m_headline->anchor({0.5f, 1.0f});
-    m_headline->fontName("roboto_18");
+    m_headline->fontName("label_headline");
     m_headline->maxCharacterWidth(18);
 
     m_subHeadline->anchor({0.5f, 0.0f});
-    m_subHeadline->fontName("roboto_15");
-    m_subHeadline->maxCharacterWidth(18);
+    m_subHeadline->fontName("label_subheadline");
+    m_subHeadline->maxCharacterWidth(20);
 
     addChild(m_background);
     addChild(m_image);
@@ -95,12 +95,12 @@ void GameItem::update(float deltaSeconds)
 
     m_headline->position({
         m_size.x * 0.5f,
-        -35
+        -20
     });
 
     m_subHeadline->position({
         m_size.x * 0.5f,
-        m_size.y + 35
+        m_size.y + 18
     });
 }
 

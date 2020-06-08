@@ -45,8 +45,8 @@ void Application::run()
         m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
         m_renderer = std::make_shared<render::Renderer>(m_window);
 
-        m_renderer->loadFont("roboto_15", "Roboto-Medium.ttf", 15);
-        m_renderer->loadFont("roboto_18", "Roboto-Medium.ttf", 18);
+        m_renderer->loadFont("label_headline", "Roboto-Medium.ttf", 15);
+        m_renderer->loadFont("label_subheadline", "Roboto-Medium.ttf", 11);
     }
     catch (const std::runtime_error& e)
     {
