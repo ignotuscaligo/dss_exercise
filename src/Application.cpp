@@ -112,7 +112,14 @@ void Application::initializeTasks()
 
     logger->info("Starting cpprestsdk task");
 
-    m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
+    // Get list of games for today
+    // Often missing images and descriptive text
+    //m_gamesTask = m_stats.requestCurrentGames();
+
+    // Get list of games for specific date
+    //m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
+    m_gamesTask = m_stats.requestGamesForDate("2019-06-06");
+
     m_gamesTaskRunning = true;
 
     m_tasks.requestImageForRenderer("background", background_image_url, m_renderer);
