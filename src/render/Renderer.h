@@ -30,17 +30,17 @@ public:
     void clear();
     void present();
 
-    void loadFont(std::string name, std::string filename, int pointSize);
+    void loadFont(const std::string& name, const std::string& filename, int pointSize);
 
     void createImageTexture(const std::string& name, std::vector<unsigned char>& bytes);
     void createTextTexture(const std::string& name, const std::string& fontName, const std::string& text);
     std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
 
     void fillTexture(std::shared_ptr<Texture> texture);
-    void drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect);
+    void drawTexture(std::shared_ptr<Texture> texture, const ui::Rect& rect);
 
-    void drawRect(ui::Rect rect, Color color);
-    void drawOutline(ui::Rect rect, int width, Color color);
+    void drawRect(const ui::Rect& rect, const Color& color);
+    void drawOutline(const ui::Rect& rect, int width, const Color& color);
 
 private:
     std::shared_ptr<Font> fetchFont(const std::string& name) const;

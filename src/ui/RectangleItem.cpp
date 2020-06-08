@@ -7,7 +7,7 @@
 namespace ui
 {
 
-void RectangleItem::fillColor(render::Color fillColor)
+void RectangleItem::fillColor(const render::Color& fillColor)
 {
     m_fillColor = fillColor;
 }
@@ -17,7 +17,7 @@ render::Color RectangleItem::fillColor() const
     return m_fillColor;
 }
 
-void RectangleItem::borderColor(render::Color borderColor)
+void RectangleItem::borderColor(const render::Color& borderColor)
 {
     m_borderColor = borderColor;
 }

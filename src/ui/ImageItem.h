@@ -12,7 +12,7 @@ namespace ui
 class ImageItem : public Item
 {
 public:
-    void        imageName(std::string imageName);
+    void        imageName(const std::string& imageName);
     std::string imageName() const;
 
     void matchImageSize(bool matchImageSize);

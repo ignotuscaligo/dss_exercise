@@ -65,7 +65,7 @@ void Renderer::present()
     SDL_RenderPresent(m_renderer);
 }
 
-void Renderer::loadFont(std::string name, std::string filename, int pointSize)
+void Renderer::loadFont(const std::string& name, const std::string& filename, int pointSize)
 {
     auto font = std::make_shared<Font>(filename, pointSize * m_pixelScale);
 
@@ -118,7 +118,7 @@ void Renderer::fillTexture(std::shared_ptr<Texture> texture)
     SDL_RenderCopy(m_renderer, texture->handle(), nullptr, nullptr);
 }
 
-void Renderer::drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect)
+void Renderer::drawTexture(std::shared_ptr<Texture> texture, const ui::Rect& rect)
 {
     SDL_FRect imageRect = {
         rect.x(),
@@ -130,7 +130,7 @@ void Renderer::drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect)
     SDL_RenderCopyF(m_renderer, texture->handle(), nullptr, &imageRect);
 }
 
-void Renderer::drawRect(ui::Rect rect, Color color)
+void Renderer::drawRect(const ui::Rect& rect, const Color& color)
 {
     SDL_FRect sdlRect = {
         rect.x(),
@@ -143,7 +143,7 @@ void Renderer::drawRect(ui::Rect rect, Color color)
     SDL_RenderFillRectF(m_renderer, &sdlRect);
 }
 
-void Renderer::drawOutline(ui::Rect rect, int width, Color color)
+void Renderer::drawOutline(const ui::Rect& rect, int width, const Color& color)
 {
     float lineLeft = rect.left() + width / 2;
     float lineRight = rect.right() - ((width + 1) / 2);

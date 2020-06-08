@@ -11,7 +11,7 @@
 namespace rest
 {
 
-void Tasks::requestImageForRenderer(std::string name, std::string url, std::weak_ptr<render::Renderer> renderer)
+void Tasks::requestImageForRenderer(const std::string& name, const std::string& url, std::weak_ptr<render::Renderer> renderer)
 {
     auto logger = utility::get_logger();
 

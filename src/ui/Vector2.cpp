@@ -1,6 +1,6 @@
 #include "ui/Vector2.h"
 
-ui::Vector2 operator+(ui::Vector2 a, ui::Vector2 b)
+ui::Vector2 operator+(const ui::Vector2& a, const ui::Vector2& b)
 {
     return {
         a.x + b.x,
@@ -8,7 +8,7 @@ ui::Vector2 operator+(ui::Vector2 a, ui::Vector2 b)
     };
 }
 
-ui::Vector2 operator*(ui::Vector2 a, ui::Vector2 b)
+ui::Vector2 operator*(const ui::Vector2& a, const ui::Vector2& b)
 {
     return {
         a.x * b.x,
@@ -16,7 +16,7 @@ ui::Vector2 operator*(ui::Vector2 a, ui::Vector2 b)
     };
 }
 
-ui::Vector2 operator-(ui::Vector2 a)
+ui::Vector2 operator-(const ui::Vector2& a)
 {
     return {
         -a.x,
@@ -24,7 +24,7 @@ ui::Vector2 operator-(ui::Vector2 a)
     };
 }
 
-ui::Vector2 operator*(ui::Vector2 a, float b)
+ui::Vector2 operator*(const ui::Vector2& a, float b)
 {
     return {
         a.x * b,

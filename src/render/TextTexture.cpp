@@ -13,7 +13,7 @@
 namespace render
 {
 
-TextTexture::TextTexture(Renderer* renderer, std::shared_ptr<Font> font, std::string text)
+TextTexture::TextTexture(Renderer* renderer, std::shared_ptr<Font> font, const std::string& text)
 {
     SDL_Surface* textSurface = TTF_RenderText_Blended(font->handle(), text.c_str(), {255, 255, 255, 255});
 

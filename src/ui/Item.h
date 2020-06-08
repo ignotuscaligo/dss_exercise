@@ -19,16 +19,16 @@ using ItemList = std::vector<ItemPtr>;
 class Item
 {
 public:
-    void    anchor(Vector2 anchor);
+    void    anchor(const Vector2& anchor);
     Vector2 anchor() const;
 
-    void    position(Vector2 position);
+    void    position(const Vector2& position);
     Vector2 position() const;
 
-    void    scale(Vector2 scale);
+    void    scale(const Vector2& scale);
     Vector2 scale() const;
 
-    void    size(Vector2 size);
+    void    size(const Vector2& size);
     Vector2 size() const;
 
     void enabled(bool enabled);

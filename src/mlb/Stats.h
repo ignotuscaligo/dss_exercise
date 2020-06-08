@@ -20,7 +20,7 @@ public:
 
     pplx::task<std::vector<Game>> requestCurrentGames();
     pplx::task<std::vector<Game>> requestGamesForDate(std::tm* date);
-    pplx::task<std::vector<Game>> requestGamesForDate(std::string date);
+    pplx::task<std::vector<Game>> requestGamesForDate(const std::string& date);
 
 private:
     pplx::task<web::json::value> extractJsonFromResponse(web::http::http_response response);

@@ -16,7 +16,7 @@ class GameItem : public Item
 public:
     GameItem();
 
-    void      game(mlb::Game game);
+    void      game(const mlb::Game& game);
     mlb::Game game() const;
 
     void selected(bool selected);

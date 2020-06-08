@@ -8,7 +8,7 @@ namespace ui
 class Rect
 {
 public:
-    Rect(Vector2 position, Vector2 size);
+    Rect(const Vector2& position, const Vector2& size);
 
     float x() const;
     float y() const;

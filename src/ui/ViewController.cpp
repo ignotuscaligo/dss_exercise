@@ -42,7 +42,7 @@ void ViewController::selectPrevious()
     selectedIndex(m_selectedIndex - 1);
 }
 
-void ViewController::populateGames(std::vector<mlb::Game> games)
+void ViewController::populateGames(const std::vector<mlb::Game>& games)
 {
     m_gameItems.clear();
 

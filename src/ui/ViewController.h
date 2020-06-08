@@ -23,7 +23,7 @@ public:
     void selectNext();
     void selectPrevious();
 
-    void populateGames(std::vector<mlb::Game> games);
+    void populateGames(const std::vector<mlb::Game>& games);
     void update(float deltaSeconds);
     void draw(std::shared_ptr<render::Renderer> renderer);
 

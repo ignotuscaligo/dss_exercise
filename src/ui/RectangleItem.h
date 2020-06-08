@@ -13,10 +13,10 @@ namespace ui
 class RectangleItem : public Item
 {
 public:
-    void  fillColor(render::Color fillColor);
+    void  fillColor(const render::Color& fillColor);
     render::Color fillColor() const;
 
-    void  borderColor(render::Color borderColor);
+    void  borderColor(const render::Color& borderColor);
     render::Color borderColor() const;
 
     void borderWidth(int borderWidth);

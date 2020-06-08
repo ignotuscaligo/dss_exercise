@@ -6,7 +6,7 @@
 namespace ui
 {
 
-void ImageItem::imageName(std::string imageName)
+void ImageItem::imageName(const std::string& imageName)
 {
     m_imageName = imageName;
 }

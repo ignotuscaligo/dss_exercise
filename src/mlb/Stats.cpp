@@ -47,7 +47,7 @@ pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::tm* date)
     return requestGamesForDate(query_string_from_date(date));
 }
 
-pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::string date)
+pplx::task<std::vector<Game>> Stats::requestGamesForDate(const std::string& date)
 {
     auto uri = web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
                                              .append_query(U("date"), utility::conversions::to_string_t(date))

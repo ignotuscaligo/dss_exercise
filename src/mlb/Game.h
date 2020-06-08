@@ -19,7 +19,7 @@ public:
     int         imageWidth() const;
     int         imageHeight() const;
 
-    void        imageName(std::string imageName);
+    void        imageName(const std::string& imageName);
     std::string imageName() const;
 
 private:

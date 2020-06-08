@@ -14,7 +14,7 @@ namespace rest
 class Tasks
 {
 public:
-    void requestImageForRenderer(std::string name, std::string url, std::weak_ptr<render::Renderer> renderer);
+    void requestImageForRenderer(const std::string& name, const std::string& url, std::weak_ptr<render::Renderer> renderer);
 
     void clearCompletedTasks();
 

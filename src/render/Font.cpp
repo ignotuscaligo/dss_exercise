@@ -6,7 +6,7 @@
 namespace render
 {
 
-Font::Font(std::string filename, int pixelSize)
+Font::Font(const std::string& filename, int pixelSize)
 {
     m_font = TTF_OpenFont(filename.c_str(), pixelSize);
 

@@ -35,7 +35,7 @@ GameItem::GameItem()
     addChild(m_subHeadline);
 }
 
-void GameItem::game(mlb::Game game)
+void GameItem::game(const mlb::Game& game)
 {
     m_game = game;
 

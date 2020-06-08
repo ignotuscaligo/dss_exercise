@@ -3,7 +3,7 @@
 namespace ui
 {
 
-Rect::Rect(Vector2 position, Vector2 size)
+Rect::Rect(const Vector2& position, const Vector2& size)
 : m_position(position)
 , m_size(size)
 {

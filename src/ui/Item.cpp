@@ -5,7 +5,7 @@
 namespace ui
 {
 
-void Item::anchor(Vector2 anchor)
+void Item::anchor(const Vector2& anchor)
 {
     m_anchor = {
         std::min(std::max(0.0f, anchor.x), 1.0f),
@@ -18,7 +18,7 @@ Vector2 Item::anchor() const
     return m_anchor;
 }
 
-void Item::position(Vector2 position)
+void Item::position(const Vector2& position)
 {
     m_position = position;
 }
@@ -28,7 +28,7 @@ Vector2 Item::position() const
     return m_position;
 }
 
-void Item::scale(Vector2 scale)
+void Item::scale(const Vector2& scale)
 {
     m_scale = {
         std::max(0.0f, scale.x),
@@ -41,7 +41,7 @@ Vector2 Item::scale() const
     return m_scale;
 }
 
-void Item::size(Vector2 size)
+void Item::size(const Vector2& size)
 {
     m_size = {
         std::max(0.0f, size.x),
