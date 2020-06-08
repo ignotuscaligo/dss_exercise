@@ -19,8 +19,10 @@ TextTexture::TextTexture(Renderer* renderer, std::shared_ptr<Font> font, std::st
     }
     else
     {
-        m_width = textSurface->w;
-        m_height = textSurface->h;
+        float pixelScale = renderer->pixelScale();
+
+        m_width = static_cast<int>(textSurface->w / pixelScale);
+        m_height = static_cast<int>(textSurface->h / pixelScale);
 
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
         m_texture = SDL_CreateTextureFromSurface(renderer->handle(), textSurface);
