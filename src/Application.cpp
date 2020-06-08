@@ -21,18 +21,27 @@ const utility::string_t background_image_url = U("http://mlb.mlb.com/mlb/images/
 }
 
 Application::Application()
-: m_testItem(std::make_shared<ui::Item>())
+: m_rootItem(std::make_shared<ui::Item>())
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
 
-    m_testItem->position({10, 10});
-    m_testItem->size({248, 138});
+    ui::ItemPtr child0 = std::make_shared<ui::Item>();
+    ui::ItemPtr child1 = std::make_shared<ui::Item>();
 
-    ui::Rect rect = m_testItem->drawRect();
+    m_rootItem->addChild(child0);
+    child0->parent(m_rootItem);
 
-    logger->debug("position: {}, {}", m_testItem->position().x, m_testItem->position().y);
-    logger->debug("rect: {}, {}, {}, {}", rect.left(), rect.right(), rect.top(), rect.bottom());
+    m_rootItem->addChild(child1);
+    child1->parent(m_rootItem);
+
+    child0->position({10, 10});
+    child0->size({248, 138});
+
+    auto rect = child0->drawRect();
+
+    child1->position({rect.right() + 10, 10});
+    child1->size({248, 138});
 }
 
 void Application::run()
@@ -85,22 +94,25 @@ void Application::run()
             m_renderer->fillTexture(background);
         }
 
-        auto testRect  = m_testItem->drawRect();
-        auto testImage = m_renderer->fetchTexture("Nats, unfazed by Rays' strategy, cruise to win");
-
-        m_renderer->drawRect(testRect, 135, 135, 135, 255);
-
-        if (testImage)
+        for (auto child : m_rootItem->children())
         {
-            m_renderer->drawTexture(testImage, testRect);
+            auto childRect = child->drawRect();
+            auto image     = m_renderer->fetchTexture("Nats, unfazed by Rays' strategy, cruise to win");
+
+            m_renderer->drawRect(childRect, 135, 135, 135, 255);
+
+            if (image)
+            {
+                m_renderer->drawTexture(image, childRect);
+            }
+
+            ui::Item outline;
+
+            outline.position({childRect.x() - 4, childRect.y() - 4});
+            outline.size({childRect.width() + 8, childRect.height() + 8});
+
+            m_renderer->drawOutline(outline.drawRect(), 2, 255, 255, 255, 255);
         }
-
-        ui::Item outline;
-
-        outline.position({testRect.x() - 4, testRect.y() - 4});
-        outline.size({testRect.width() + 8, testRect.height() + 8});
-
-        m_renderer->drawOutline(outline.drawRect(), 2, 255, 255, 255, 255);
 
         m_renderer->present();
     }

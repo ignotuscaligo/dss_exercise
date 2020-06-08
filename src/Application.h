@@ -40,5 +40,5 @@ private:
     std::shared_ptr<render::Window>   m_window{nullptr};
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
 
-    ui::ItemPtr m_testItem;
+    ui::ItemPtr m_rootItem;
 };
