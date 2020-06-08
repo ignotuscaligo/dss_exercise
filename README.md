@@ -84,6 +84,38 @@ Install with apt
 $ sudo apt install libspdlog-dev
 ```
 
+# Building
+
+## Windows
+
+Run the `vcpkg` integration before each session
+
+```
+PS> .\vcpkg integrate install
+```
+
+When configuring the CMake project on Windows, and additional flag needs to be provided for the `vcpkg` libraries to be found correctly:
+
+```
+PS> cmake .. -DCMAKE_TOOLCHAIN_FILE=C:/full/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+```
+
+Windows builds a Visual Studio project, the executable can be built from either the command line or with the project.
+
+### macOS
+
+macOS builds an Xcode project, the executable can be built from either the command line or with the project.
+
+## Shared
+
+```
+> cd path/to/repo
+> mkdir build
+> cd build
+> cmake ..
+> cmake --build .
+```
+
 # Troubleshooting
 
 * `No rule to make target `/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework'`, or similar
