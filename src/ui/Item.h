@@ -40,6 +40,9 @@ public:
     void     addChild(ItemPtr child);
     ItemList children();
 
+    void updateChildren(float deltaSeconds);
+    virtual void update(float deltaSeconds) {};
+
     void drawChildren(std::shared_ptr<render::Renderer> renderer);
     virtual void draw(std::shared_ptr<render::Renderer> renderer) {};
 

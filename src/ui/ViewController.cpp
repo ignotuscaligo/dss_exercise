@@ -89,6 +89,8 @@ void ViewController::update(float deltaSeconds)
     }
 
     m_rowLayout->position({currentPosition, 250});
+
+    m_rootItem->updateChildren(deltaSeconds);
 }
 
 void ViewController::draw(std::shared_ptr<render::Renderer> renderer)

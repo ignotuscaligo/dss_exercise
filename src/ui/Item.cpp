@@ -106,6 +106,18 @@ ItemList Item::children()
     return m_children;
 }
 
+void Item::updateChildren(float deltaSeconds)
+{
+    for (auto child : m_children)
+    {
+        if (child->enabled())
+        {
+            child->update(deltaSeconds);
+            child->updateChildren(deltaSeconds);
+        }
+    }
+}
+
 void Item::drawChildren(std::shared_ptr<render::Renderer> renderer)
 {
     for (auto child : m_children)
