@@ -17,6 +17,8 @@ find_package(spdlog     REQUIRED)
 
 if(WIN32)
     add_executable(dss_exercise WIN32)
+elseif(APPLE)
+    add_executable(dss_exercise MACOSX_BUNDLE)
 else()
     add_executable(dss_exercise)
 endif()
@@ -91,3 +93,11 @@ target_compile_features(dss_exercise
     PUBLIC
         cxx_std_11
 )
+
+if(APPLE)
+    set_target_properties(dss_exercise
+        PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST  "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/Info.plist.in"
+            MACOSX_BUNDLE_BUNDLE_NAME "dss_exercise"
+    )
+endif()

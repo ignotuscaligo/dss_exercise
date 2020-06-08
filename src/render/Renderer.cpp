@@ -21,6 +21,8 @@ Renderer::Renderer(std::shared_ptr<Window> window)
     {
         throw std::runtime_error("Failed to create SDL renderer: " + std::string(SDL_GetError()));
     }
+
+    SDL_RenderSetScale(m_renderer, 2, 2);
 }
 
 Renderer::~Renderer()
