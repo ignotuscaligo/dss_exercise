@@ -5,9 +5,9 @@
 namespace render
 {
 
-Font::Font(std::string filename)
+Font::Font(std::string filename, int pixelSize)
 {
-    m_font = TTF_OpenFont(filename.c_str(), 16);
+    m_font = TTF_OpenFont(filename.c_str(), pixelSize);
 
     if (m_font == nullptr)
     {

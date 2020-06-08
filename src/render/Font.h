@@ -10,7 +10,7 @@ namespace render
 class Font
 {
 public:
-    Font(std::string filename);
+    Font(std::string filename, int pixelSize);
     ~Font();
 
     TTF_Font* handle() const;
