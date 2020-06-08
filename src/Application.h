@@ -18,6 +18,7 @@
 
 #include <SDL2/SDL.h>
 
+#include <chrono>
 #include <memory>
 #include <vector>
 
@@ -44,4 +45,6 @@ private:
 
     ui::ViewController m_gameView;
     input::State       m_inputState;
+
+    std::chrono::system_clock::time_point m_lastUpdate;
 };

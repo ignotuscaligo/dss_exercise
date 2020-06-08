@@ -55,6 +55,8 @@ void Application::run()
 
     initializeTasks();
 
+    m_lastUpdate = std::chrono::system_clock::now();
+
     while (!quit)
     {
         while (SDL_PollEvent(&e))
@@ -66,6 +68,12 @@ void Application::run()
         }
 
         checkTasks();
+
+        auto currentTime = std::chrono::system_clock::now();
+        auto deltaTime = currentTime - m_lastUpdate;
+        m_lastUpdate = currentTime;
+
+        float deltaSeconds = std::chrono::duration_cast<std::chrono::duration<float>>(deltaTime).count();
 
         m_inputState.update();
 
