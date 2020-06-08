@@ -72,10 +72,11 @@ void Application::run()
 
         update();
 
+        m_gameView.update();
+
         m_renderer->drawColor(0, 0, 0, 255);
         m_renderer->clear();
 
-        m_gameView.update();
         m_gameView.draw(m_renderer);
 
         m_renderer->present();
