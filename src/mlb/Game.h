@@ -16,10 +16,10 @@ public:
     std::string headline() const;
     std::string subHeadline() const;
     std::string imageUrl() const;
-    int imageWidth() const;
-    int imageHeight() const;
+    int         imageWidth() const;
+    int         imageHeight() const;
 
-    void imageName(std::string imageName);
+    void        imageName(std::string imageName);
     std::string imageName() const;
 
 private:
