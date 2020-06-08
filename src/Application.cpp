@@ -7,6 +7,7 @@
 
 #include "ui/Rect.h"
 #include "ui/ImageItem.h"
+#include "ui/RectangleItem.h"
 
 #include "render/Color.h"
 
@@ -29,26 +30,73 @@ Application::Application()
     auto logger = utility::get_logger();
     logger->info("Creating application");
 
-    std::shared_ptr<ui::ImageItem> child0 = std::make_shared<ui::ImageItem>();
-    std::shared_ptr<ui::ImageItem> child1 = std::make_shared<ui::ImageItem>();
+    // Test item 1
+    ui::ItemPtr gameItem0 = std::make_shared<ui::Item>();
 
-    m_rootItem->addChild(child0);
-    child0->parent(m_rootItem);
+    gameItem0->position({10, 10});
 
-    m_rootItem->addChild(child1);
-    child1->parent(m_rootItem);
+    std::shared_ptr<ui::RectangleItem> gameBackground0 = std::make_shared<ui::RectangleItem>();
 
-    child0->position({10, 10});
-    child0->size({248, 138});
+    gameBackground0->size({248, 138});
+    gameBackground0->fillColor({100, 100, 100, 255});
 
-    child0->imageName("Nats, unfazed by Rays' strategy, cruise to win");
+    std::shared_ptr<ui::ImageItem> gameImage0 = std::make_shared<ui::ImageItem>();
 
-    auto rect = child0->drawRect();
+    gameImage0->size({248, 138});
+    gameImage0->imageName("Nats, unfazed by Rays' strategy, cruise to win");
 
-    child1->position({rect.right() + 10, 10});
-    child1->size({248, 138});
+    std::shared_ptr<ui::RectangleItem> gameOutline0 = std::make_shared<ui::RectangleItem>();
 
-    child1->imageName("Colon ties Marichal with win No. 243");
+    gameOutline0->position({-4, -4});
+    gameOutline0->size({248 + 8, 138 + 8});
+    gameOutline0->borderColor({255, 255, 255, 255});
+    gameOutline0->borderWidth(2);
+
+    gameItem0->addChild(gameBackground0);
+    gameBackground0->parent(gameItem0);
+
+    gameItem0->addChild(gameImage0);
+    gameImage0->parent(gameItem0);
+
+    gameItem0->addChild(gameOutline0);
+    gameOutline0->parent(gameItem0);
+
+    m_rootItem->addChild(gameItem0);
+    gameItem0->parent(m_rootItem);
+
+    // Test item 2
+    ui::ItemPtr gameItem1 = std::make_shared<ui::Item>();
+
+    gameItem1->position({268, 10});
+
+    std::shared_ptr<ui::RectangleItem> gameBackground1 = std::make_shared<ui::RectangleItem>();
+
+    gameBackground1->size({248, 138});
+    gameBackground1->fillColor({100, 100, 100, 255});
+
+    std::shared_ptr<ui::ImageItem> gameImage1 = std::make_shared<ui::ImageItem>();
+
+    gameImage1->size({248, 138});
+    gameImage1->imageName("Colon ties Marichal with win No. 243");
+
+    std::shared_ptr<ui::RectangleItem> gameOutline1 = std::make_shared<ui::RectangleItem>();
+
+    gameOutline1->position({-4, -4});
+    gameOutline1->size({248 + 8, 138 + 8});
+    gameOutline1->borderColor({255, 255, 255, 255});
+    gameOutline1->borderWidth(2);
+
+    gameItem1->addChild(gameBackground1);
+    gameBackground1->parent(gameItem1);
+
+    gameItem1->addChild(gameImage1);
+    gameImage1->parent(gameItem1);
+
+    gameItem1->addChild(gameOutline1);
+    gameOutline1->parent(gameItem1);
+
+    m_rootItem->addChild(gameItem1);
+    gameItem1->parent(m_rootItem);
 }
 
 void Application::run()
@@ -101,21 +149,7 @@ void Application::run()
             m_renderer->fillTexture(background);
         }
 
-        for (auto child : m_rootItem->children())
-        {
-            auto childRect = child->drawRect();
-
-            m_renderer->drawRect(childRect, {135, 135, 135, 255});
-
-            ui::Item outline;
-
-            outline.position({childRect.x() - 4, childRect.y() - 4});
-            outline.size({childRect.width() + 8, childRect.height() + 8});
-
-            m_renderer->drawOutline(outline.drawRect(), 2, {255, 255, 255, 255});
-
-            child->draw(m_renderer);
-        }
+        m_rootItem->drawChildren(m_renderer);
 
         m_renderer->present();
     }
