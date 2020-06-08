@@ -44,7 +44,7 @@ $ brew install sdl2_ttf
 Install with vcpkg
 ```
 PS> vcpkg install sdl2 sdl2:x64-windows
-PS> vcpkg install sdl2-image sdl2-image:x64-windows
+PS> vcpkg install sdl2-image[libjpeg-turbo] sdl2-image[libjpeg-turbo]:x64-windows
 PS> vcpkg install sdl2-gfx sdl2-gfx:x64-windows
 PS> vcpkg install sdl2-ttf sdl2-ttf:x64-windows
 ```
