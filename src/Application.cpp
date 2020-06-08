@@ -113,8 +113,8 @@ void Application::initializeTasks()
     //m_gamesTask = m_stats.requestCurrentGames();
 
     // Get list of games for specific date
-    //m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
-    m_gamesTask = m_stats.requestGamesForDate("2019-06-06");
+    m_gamesTask = m_stats.requestGamesForDate("2018-06-06");
+    // m_gamesTask = m_stats.requestGamesForDate("2019-06-06");
 
     m_gamesTaskRunning = true;
 
