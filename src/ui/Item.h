@@ -31,7 +31,8 @@ public:
     void    size(Vector2 size);
     Vector2 size() const;
 
-    Rect drawRect() const;
+    Rect    drawRect() const;
+    Vector2 drawAnchor() const;
 
     void    parent(ItemPtr parent);
     ItemPtr parent();

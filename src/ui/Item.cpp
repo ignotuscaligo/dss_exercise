@@ -58,9 +58,21 @@ Rect Item::drawRect() const
 {
     Vector2 drawSize = m_size * m_scale;
     Vector2 anchorOffset = drawSize * -m_anchor;
-    Vector2 drawPosition = m_position + anchorOffset;
+    Vector2 drawPosition = drawAnchor() + anchorOffset;
 
     return {drawPosition, drawSize};
+}
+
+Vector2 Item::drawAnchor() const
+{
+    Vector2 drawAnchor = m_position;
+
+    if (m_parent)
+    {
+        drawAnchor = drawAnchor + m_parent->drawAnchor();
+    }
+
+    return drawAnchor;
 }
 
 void Item::parent(ItemPtr parent)
