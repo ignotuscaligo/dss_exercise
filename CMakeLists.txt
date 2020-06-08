@@ -36,6 +36,7 @@ target_sources(dss_exercise
         "src/render/Renderer.cpp"
         "src/render/Texture.cpp"
         "src/render/ImageTexture.cpp"
+        "src/render/TextTexture.cpp"
         "src/render/Context.cpp"
         "src/render/Font.cpp"
         "src/rest/Tasks.cpp"
