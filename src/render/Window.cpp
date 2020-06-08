@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 
+#include <stdexcept>
 #include <exception>
 
 namespace render

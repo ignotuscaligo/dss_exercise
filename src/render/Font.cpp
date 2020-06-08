@@ -1,5 +1,6 @@
 #include "render/Font.h"
 
+#include <stdexcept>
 #include <exception>
 
 namespace render
