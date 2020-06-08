@@ -67,6 +67,19 @@ void ViewController::update()
 
         item->selected(i == m_selectedIndex);
     }
+
+    float drawableArea = m_background->size().x - 60;
+    float rowWidth = m_rowLayout->size().x;
+    float difference = rowWidth - drawableArea;
+    float rowPosition = 30;
+
+    if (difference > 0 && m_gameItems.size() > 1)
+    {
+        float offset = m_selectedIndex * (difference / static_cast<float>(m_gameItems.size() - 1));
+        rowPosition = 30 - offset;
+    }
+
+    m_rowLayout->position({rowPosition, 250});
 }
 
 void ViewController::draw(std::shared_ptr<render::Renderer> renderer)
