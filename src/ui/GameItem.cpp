@@ -85,4 +85,13 @@ void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
     });
 }
 
+void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
+{
+    bool imageValid = m_image->valid(renderer);
+
+    m_background->enabled(!m_selected || !imageValid);
+    m_image->enabled(imageValid);
+    m_outline->enabled(m_selected && imageValid);
+}
+
 }

@@ -21,6 +21,7 @@ public:
     void selected(bool selected);
     bool selected() const;
 
+    void update(float deltaSeconds) override;
     void draw(std::shared_ptr<render::Renderer> renderer) override;
 
 private:
