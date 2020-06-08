@@ -8,6 +8,8 @@
 #include "ui/Rect.h"
 #include "ui/ImageItem.h"
 
+#include "render/Color.h"
+
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
 #include <cpprest/json.h>
@@ -103,14 +105,14 @@ void Application::run()
         {
             auto childRect = child->drawRect();
 
-            m_renderer->drawRect(childRect, 135, 135, 135, 255);
+            m_renderer->drawRect(childRect, {135, 135, 135, 255});
 
             ui::Item outline;
 
             outline.position({childRect.x() - 4, childRect.y() - 4});
             outline.size({childRect.width() + 8, childRect.height() + 8});
 
-            m_renderer->drawOutline(outline.drawRect(), 2, 255, 255, 255, 255);
+            m_renderer->drawOutline(outline.drawRect(), 2, {255, 255, 255, 255});
 
             child->draw(m_renderer);
         }

@@ -2,6 +2,7 @@
 
 #include "render/Window.h"
 #include "render/Texture.h"
+#include "render/Color.h"
 
 #include "ui/Rect.h"
 
@@ -93,7 +94,7 @@ void Renderer::drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect)
     SDL_RenderCopyF(m_renderer, texture->handle(), nullptr, &imageRect);
 }
 
-void Renderer::drawRect(ui::Rect rect, int red, int green, int blue, int alpha)
+void Renderer::drawRect(ui::Rect rect, Color color)
 {
     SDL_FRect sdlRect = {
         rect.x(),
@@ -102,11 +103,11 @@ void Renderer::drawRect(ui::Rect rect, int red, int green, int blue, int alpha)
         rect.height()
     };
 
-    SDL_SetRenderDrawColor(m_renderer, red, green, blue, alpha);
+    SDL_SetRenderDrawColor(m_renderer, color.red, color.green, color.blue, color.alpha);
     SDL_RenderFillRectF(m_renderer, &sdlRect);
 }
 
-void Renderer::drawOutline(ui::Rect rect, int width, int red, int green, int blue, int alpha)
+void Renderer::drawOutline(ui::Rect rect, int width, Color color)
 {
     float lineLeft = rect.left() + width / 2;
     float lineRight = rect.right() - ((width + 1) / 2);
@@ -117,16 +118,16 @@ void Renderer::drawOutline(ui::Rect rect, int width, int red, int green, int blu
     float bottomOffset = -std::max(0, ((width - 1) / 2));
 
     // left
-    thickLineRGBA(m_renderer, lineLeft, lineTop, lineLeft, lineBottom, width, red, green, blue, alpha);
+    thickLineRGBA(m_renderer, lineLeft, lineTop, lineLeft, lineBottom, width, color.red, color.green, color.blue, color.alpha);
 
     // top
-    thickLineRGBA(m_renderer, lineLeft, lineTop + topOffset, lineRight, lineTop + topOffset, width, red, green, blue, alpha);
+    thickLineRGBA(m_renderer, lineLeft, lineTop + topOffset, lineRight, lineTop + topOffset, width, color.red, color.green, color.blue, color.alpha);
 
     // right
-    thickLineRGBA(m_renderer, lineRight, lineTop, lineRight, lineBottom, width, red, green, blue, alpha);
+    thickLineRGBA(m_renderer, lineRight, lineTop, lineRight, lineBottom, width, color.red, color.green, color.blue, color.alpha);
 
     // bottom
-    thickLineRGBA(m_renderer, lineLeft, lineBottom + bottomOffset, lineRight, lineBottom + bottomOffset, width, red, green, blue, alpha);
+    thickLineRGBA(m_renderer, lineLeft, lineBottom + bottomOffset, lineRight, lineBottom + bottomOffset, width, color.red, color.green, color.blue, color.alpha);
 }
 
 }

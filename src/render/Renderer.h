@@ -14,6 +14,7 @@ namespace render
 
 class Window;
 class Texture;
+class Color;
 
 class Renderer
 {
@@ -33,8 +34,8 @@ public:
     void fillTexture(std::shared_ptr<Texture> texture);
     void drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect);
 
-    void drawRect(ui::Rect rect, int red, int green, int blue, int alpha);
-    void drawOutline(ui::Rect rect, int width, int red, int green, int blue, int alpha);
+    void drawRect(ui::Rect rect, Color color);
+    void drawOutline(ui::Rect rect, int width, Color color);
 private:
     SDL_Renderer* m_renderer{nullptr};
 
