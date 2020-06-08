@@ -12,6 +12,7 @@
 #include "ui/GameItem.h"
 
 #include "render/Color.h"
+#include "render/Font.h"
 
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
@@ -48,6 +49,15 @@ void Application::run()
     {
         logger->error("Failed to initialize SDL objects: {}", e.what());
         return;
+    }
+
+    try
+    {
+        render::Font testFont("Roboto-Medium.ttf");
+    }
+    catch (const std::runtime_error& e)
+    {
+        logger->error("Exception occurred while creating test Font: {}", e.what());
     }
 
     SDL_Event e;
