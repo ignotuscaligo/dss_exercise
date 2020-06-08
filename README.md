@@ -104,7 +104,13 @@ Windows builds a Visual Studio project, the executable can be built from either 
 
 ### macOS
 
-macOS builds an Xcode project, the executable can be built from either the command line or with the project.
+Use the Xcode generator when running the CMake configuration:
+
+```
+$ cmake .. -G Xcode
+```
+
+The executable can be built from either the command line or with the project.
 
 ## Shared
 
