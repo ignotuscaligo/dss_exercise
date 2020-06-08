@@ -87,7 +87,7 @@ void Application::run()
             m_gameView.selectNext();
         }
 
-        m_gameView.update();
+        m_gameView.update(deltaSeconds);
 
         m_renderer->drawColor(0, 0, 0, 255);
         m_renderer->clear();

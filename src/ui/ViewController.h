@@ -24,7 +24,7 @@ public:
     void selectPrevious();
 
     void populateGames(std::vector<mlb::Game> games);
-    void update();
+    void update(float deltaSeconds);
     void draw(std::shared_ptr<render::Renderer> renderer);
 
 private:

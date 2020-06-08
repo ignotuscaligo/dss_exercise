@@ -1,6 +1,7 @@
 #include "ui/ViewController.h"
 
 #include <algorithm>
+#include <cmath>
 
 namespace ui
 {
@@ -59,7 +60,7 @@ void ViewController::populateGames(std::vector<mlb::Game> games)
     }
 }
 
-void ViewController::update()
+void ViewController::update(float deltaSeconds)
 {
     for (int i = 0; i < m_gameItems.size(); i++)
     {
@@ -79,7 +80,15 @@ void ViewController::update()
         rowPosition = 30 - offset;
     }
 
-    m_rowLayout->position({rowPosition, 250});
+    float currentPosition = m_rowLayout->position().x;
+    float positionDelta = rowPosition - currentPosition;
+
+    if (std::abs(positionDelta) > 0)
+    {
+        currentPosition += positionDelta * 5 * deltaSeconds;
+    }
+
+    m_rowLayout->position({currentPosition, 250});
 }
 
 void ViewController::draw(std::shared_ptr<render::Renderer> renderer)
