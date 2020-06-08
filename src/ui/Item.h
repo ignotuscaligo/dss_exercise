@@ -37,7 +37,7 @@ public:
     void     addChild(ItemPtr child);
     ItemList children();
 
-private:
+protected:
     Vector2 m_anchor{0.0f, 0.0f};
     Vector2 m_position{0.0f, 0.0f};
     Vector2 m_scale{1.0f, 1.0f};

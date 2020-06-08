@@ -39,6 +39,7 @@ target_sources(dss_exercise
         "src/ui/Vector2.cpp"
         "src/ui/Rect.cpp"
         "src/ui/Item.cpp"
+        "src/ui/ImageItem.cpp"
 )
 
 if(WIN32)
