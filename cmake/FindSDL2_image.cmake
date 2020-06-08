@@ -1,5 +1,5 @@
 if(NOT TARGET SDL2::SDL2_image)
-    find_path(SDL2_IMAGE_INCLUDE_DIR "SDL_image.h")
+    find_path(SDL2_IMAGE_INCLUDE_DIR "SDL2/SDL_image.h")
     find_library(SDL2_IMAGE_LIB "SDL2_image")
 
     get_filename_component(SLD2_IMAGE_LIB_DIR ${SDL2_IMAGE_LIB} DIRECTORY)

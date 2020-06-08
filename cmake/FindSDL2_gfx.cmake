@@ -1,5 +1,5 @@
 if(NOT TARGET SDL2::SDL2_gfx)
-    find_path(SDL2_GFX_INCLUDE_DIR "SDL2_gfxPrimitives.h")
+    find_path(SDL2_GFX_INCLUDE_DIR "SDL2/SDL2_gfxPrimitives.h")
     find_library(SDL2_GFX_LIB "SDL2_gfx")
 
     get_filename_component(SLD2_GFX_LIB_DIR ${SDL2_GFX_LIB} DIRECTORY)
