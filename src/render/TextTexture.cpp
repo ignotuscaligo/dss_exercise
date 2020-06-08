@@ -11,7 +11,7 @@ namespace render
 
 TextTexture::TextTexture(Renderer* renderer, std::shared_ptr<Font> font, std::string text)
 {
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font->handle(), text.c_str(), {255, 255, 255, 255});
+    SDL_Surface* textSurface = TTF_RenderText_Blended(font->handle(), text.c_str(), {255, 255, 255, 255});
 
     if (textSurface == nullptr)
     {
