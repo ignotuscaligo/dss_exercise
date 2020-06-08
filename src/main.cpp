@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 {
     auto logger = utility::get_logger();
 
-    logger->info("Hello, world!");
+    logger->info("Hello!");
 
     Application app;
 

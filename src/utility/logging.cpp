@@ -23,7 +23,7 @@ std::shared_ptr<spdlog::logger> create_logger()
 
     auto logger = std::make_shared<spdlog::logger>(logger_name, loggingSinks.begin(), loggingSinks.end());
 
-    logger->set_level(spdlog::level::debug);
+    logger->set_level(spdlog::level::info);
 
     return logger;
 }

@@ -12,7 +12,7 @@ void Tasks::requestImageForRenderer(std::string name, std::string url, std::weak
 {
     auto logger = utility::get_logger();
 
-    logger->info("Requesting image named '{}' from {}", name, url);
+    logger->debug("Requesting image named '{}' from {}", name, url);
 
     auto client = web::http::client::http_client(url);
     auto getTask = client.request(web::http::methods::GET);

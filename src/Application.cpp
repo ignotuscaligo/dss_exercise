@@ -110,7 +110,7 @@ void Application::initializeTasks()
 {
     auto logger = utility::get_logger();
 
-    logger->info("Starting cpprestsdk task");
+    logger->info("Requesting games list from API");
 
     // Get list of games for today
     // Often missing images and descriptive text
@@ -158,7 +158,7 @@ void Application::checkTasks()
 
                 m_gameView.populateGames(games);
 
-                logger->info("Games task completed successfully");
+                logger->debug("Games list received successfully");
                 m_gamesTaskRunning = false;
             }
         }
