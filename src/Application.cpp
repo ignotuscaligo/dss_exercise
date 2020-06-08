@@ -58,8 +58,6 @@ void Application::run()
 
     initializeTasks();
 
-    m_renderer->createTextTexture("testLabel", "roboto", "This is a test");
-
     m_lastUpdate = std::chrono::system_clock::now();
 
     while (!quit)
