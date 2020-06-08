@@ -15,6 +15,7 @@ namespace render
 class Window;
 class Texture;
 class Color;
+class Font;
 
 class Renderer
 {
@@ -28,6 +29,8 @@ public:
     void clear();
     void present();
 
+    void loadFont(std::string name, std::string filename);
+
     void createImageTexture(const std::string& name, std::vector<unsigned char>& bytes);
     std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
 
@@ -39,6 +42,7 @@ public:
 private:
     SDL_Renderer* m_renderer{nullptr};
 
+    std::map<std::string, std::shared_ptr<Font>>    m_fonts;
     std::map<std::string, std::shared_ptr<Texture>> m_textures;
 };
 

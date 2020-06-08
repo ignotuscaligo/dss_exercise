@@ -44,20 +44,13 @@ void Application::run()
         m_context = std::make_shared<render::Context>();
         m_window = std::make_shared<render::Window>("DSS Exercise", 1280, 720);
         m_renderer = std::make_shared<render::Renderer>(m_window);
+
+        m_renderer->loadFont("roboto", "Roboto-Medium.ttf");
     }
     catch (const std::runtime_error& e)
     {
         logger->error("Failed to initialize SDL objects: {}", e.what());
         return;
-    }
-
-    try
-    {
-        render::Font testFont("Roboto-Medium.ttf");
-    }
-    catch (const std::runtime_error& e)
-    {
-        logger->error("Exception occurred while creating test Font: {}", e.what());
     }
 
     SDL_Event e;

@@ -3,6 +3,7 @@
 #include "render/Window.h"
 #include "render/Texture.h"
 #include "render/Color.h"
+#include "render/Font.h"
 #include "render/ImageTexture.h"
 
 #include "ui/Rect.h"
@@ -54,6 +55,13 @@ void Renderer::clear()
 void Renderer::present()
 {
     SDL_RenderPresent(m_renderer);
+}
+
+void Renderer::loadFont(std::string name, std::string filename)
+{
+    auto font = std::make_shared<Font>(filename);
+
+    m_fonts[name] = font;
 }
 
 void Renderer::createImageTexture(const std::string& name, std::vector<unsigned char>& bytes)
