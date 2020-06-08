@@ -5,11 +5,6 @@
 namespace ui
 {
 
-Item::Item(ItemPtr parent)
-: m_parent(parent)
-{
-}
-
 void Item::anchor(Vector2 anchor)
 {
     m_anchor = {
@@ -66,6 +61,26 @@ Rect Item::drawRect() const
     Vector2 drawPosition = m_position + anchorOffset;
 
     return {drawPosition, drawSize};
+}
+
+void Item::parent(ItemPtr parent)
+{
+    m_parent = parent;
+}
+
+ItemPtr Item::parent()
+{
+    return m_parent;
+}
+
+void Item::addChild(ItemPtr child)
+{
+    m_children.push_back(child);
+}
+
+ItemList Item::children()
+{
+    return m_children;
 }
 
 }

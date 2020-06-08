@@ -17,8 +17,6 @@ using ItemList = std::vector<ItemPtr>;
 class Item
 {
 public:
-    Item(ItemPtr parent = nullptr);
-
     void    anchor(Vector2 anchor);
     Vector2 anchor() const;
 
@@ -33,7 +31,10 @@ public:
 
     Rect drawRect() const;
 
-    ItemPtr  parent();
+    void    parent(ItemPtr parent);
+    ItemPtr parent();
+
+    void     addChild(ItemPtr child);
     ItemList children();
 
 private:
@@ -42,7 +43,7 @@ private:
     Vector2 m_scale{1.0f, 1.0f};
     Vector2 m_size{0.0f, 0.0f};
 
-    ItemPtr  m_parent;
+    ItemPtr  m_parent{nullptr};
     ItemList m_children;
 };
 
