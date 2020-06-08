@@ -24,7 +24,7 @@ Game::Game(web::json::value object)
                 m_headline    = utility::as_std_string(mlbRecap[U("headline")].as_string());
                 m_subHeadline = utility::as_std_string(mlbRecap[U("subhead")].as_string());
 
-                auto imageCut = mlbRecap[U("photo")][U("cuts")][U("248x138")];
+                auto imageCut = mlbRecap[U("photo")][U("cuts")][U("496x279")];
 
                 m_imageUrl    = utility::as_std_string(imageCut[U("src")].as_string());
                 m_imageWidth  = imageCut[U("width")].as_integer();
