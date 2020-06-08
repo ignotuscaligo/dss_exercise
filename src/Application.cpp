@@ -157,6 +157,7 @@ void Application::checkTasks()
         }
         catch (const std::exception& e)
         {
+            m_gamesTaskRunning = false;
             logger->error("Exception occurred while processing games request: {}", e.what());
         }
     }
