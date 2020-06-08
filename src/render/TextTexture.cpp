@@ -9,7 +9,7 @@
 namespace render
 {
 
-TextTexture::TextTexture(std::shared_ptr<Renderer> renderer, std::shared_ptr<Font> font, std::string text)
+TextTexture::TextTexture(Renderer* renderer, std::shared_ptr<Font> font, std::string text)
 {
     SDL_Surface* textSurface = TTF_RenderText_Solid(font->handle(), text.c_str(), {255, 255, 255, 255});
 

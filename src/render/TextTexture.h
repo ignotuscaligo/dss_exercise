@@ -14,7 +14,7 @@ class Font;
 class TextTexture : public Texture
 {
 public:
-    TextTexture(std::shared_ptr<Renderer> renderer, std::shared_ptr<Font> font, std::string text);
+    TextTexture(Renderer* renderer, std::shared_ptr<Font> font, std::string text);
 };
 
 }
