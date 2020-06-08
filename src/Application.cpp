@@ -8,6 +8,8 @@
 #include "ui/Rect.h"
 #include "ui/ImageItem.h"
 #include "ui/RectangleItem.h"
+#include "ui/RowLayout.h"
+#include "ui/GameItem.h"
 
 #include "render/Color.h"
 
@@ -30,59 +32,12 @@ Application::Application()
     auto logger = utility::get_logger();
     logger->info("Creating application");
 
-    // Test item 1
-    ui::ItemPtr gameItem0 = std::make_shared<ui::Item>();
+    std::shared_ptr<ui::RowLayout> row = std::make_shared<ui::RowLayout>();
 
-    gameItem0->position({10, 10});
+    row->position({9, 250});
+    row->spacing(30);
 
-    std::shared_ptr<ui::RectangleItem> gameBackground0 = std::make_shared<ui::RectangleItem>();
-
-    gameBackground0->size({248, 138});
-    gameBackground0->fillColor({100, 100, 100, 255});
-
-    std::shared_ptr<ui::ImageItem> gameImage0 = std::make_shared<ui::ImageItem>();
-
-    gameImage0->size({248, 138});
-    gameImage0->imageName("Nats, unfazed by Rays' strategy, cruise to win");
-
-    std::shared_ptr<ui::RectangleItem> gameOutline0 = std::make_shared<ui::RectangleItem>();
-
-    gameOutline0->position({-4, -4});
-    gameOutline0->size({248 + 8, 138 + 8});
-    gameOutline0->borderColor({255, 255, 255, 255});
-    gameOutline0->borderWidth(2);
-
-    gameItem0->addChild(gameBackground0);
-    gameItem0->addChild(gameImage0);
-    gameItem0->addChild(gameOutline0);
-    m_rootItem->addChild(gameItem0);
-
-    // Test item 2
-    ui::ItemPtr gameItem1 = std::make_shared<ui::Item>();
-
-    gameItem1->position({268, 10});
-
-    std::shared_ptr<ui::RectangleItem> gameBackground1 = std::make_shared<ui::RectangleItem>();
-
-    gameBackground1->size({248, 138});
-    gameBackground1->fillColor({100, 100, 100, 255});
-
-    std::shared_ptr<ui::ImageItem> gameImage1 = std::make_shared<ui::ImageItem>();
-
-    gameImage1->size({248, 138});
-    gameImage1->imageName("Colon ties Marichal with win No. 243");
-
-    std::shared_ptr<ui::RectangleItem> gameOutline1 = std::make_shared<ui::RectangleItem>();
-
-    gameOutline1->position({-4, -4});
-    gameOutline1->size({248 + 8, 138 + 8});
-    gameOutline1->borderColor({255, 255, 255, 255});
-    gameOutline1->borderWidth(2);
-
-    gameItem1->addChild(gameBackground1);
-    gameItem1->addChild(gameImage1);
-    gameItem1->addChild(gameOutline1);
-    m_rootItem->addChild(gameItem1);
+    m_rootItem->addChild(row);
 }
 
 void Application::run()
@@ -172,10 +127,21 @@ void Application::update()
                 logger->info("Games task completed successfully");
                 auto games = m_gamesTask.get();
 
+                auto rowLayout = m_rootItem->children()[0];
+
+                int i = 0;
+
                 for (auto game : games)
                 {
                     logger->debug("game headline: {}", game.headline());
                     logger->debug("game imageUrl: {}", game.imageUrl());
+
+                    std::shared_ptr<ui::GameItem> item = std::make_shared<ui::GameItem>();
+
+                    item->size({123, 69});
+                    item->game(game);
+
+                    rowLayout->addChild(item);
 
                     auto imageUrl = game.imageUrl();
 
