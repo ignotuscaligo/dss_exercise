@@ -29,8 +29,8 @@ public:
     void run();
 
 private:
-    void initialize();
-    void update();
+    void initializeTasks();
+    void checkTasks();
 
     pplx::task<std::vector<mlb::Game>> m_gamesTask;
     bool                               m_gamesTaskRunning{false};

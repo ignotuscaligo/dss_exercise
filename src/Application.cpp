@@ -53,7 +53,7 @@ void Application::run()
     SDL_Event e;
     bool quit = false;
 
-    initialize();
+    initializeTasks();
 
     while (!quit)
     {
@@ -65,7 +65,7 @@ void Application::run()
             }
         }
 
-        update();
+        checkTasks();
 
         m_inputState.update();
 
@@ -94,7 +94,7 @@ void Application::run()
     m_context.reset();
 }
 
-void Application::initialize()
+void Application::initializeTasks()
 {
     auto logger = utility::get_logger();
 
@@ -106,7 +106,7 @@ void Application::initialize()
     m_tasks.requestImageForRenderer("background", background_image_url, m_renderer);
 }
 
-void Application::update()
+void Application::checkTasks()
 {
     auto logger = utility::get_logger();
 
