@@ -47,6 +47,7 @@ target_sources(dss_exercise
         "src/ui/GameItem.cpp"
         "src/ui/ViewController.cpp"
         "src/input/State.cpp"
+        "src/resources/Roboto-Medium.ttf"
 )
 
 if(WIN32)
@@ -108,5 +109,11 @@ if(APPLE)
         PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST  "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/Info.plist.in"
             MACOSX_BUNDLE_BUNDLE_NAME "dss_exercise"
+            RESOURCE                  "src/resources/Roboto-Medium.ttf"
+    )
+else()
+    add_custom_command(
+        TARGET dss_exercise POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/src/resources/Roboto-Medium.ttf" "${CMAKE_CURRENT_BINARY_DIR}/Roboto-Medium.ttf"
     )
 endif()
