@@ -6,6 +6,8 @@
 #include <memory>
 #include <vector>
 
+namespace render { class Renderer; }
+
 namespace ui
 {
 
@@ -36,6 +38,8 @@ public:
 
     void     addChild(ItemPtr child);
     ItemList children();
+
+    virtual void draw(std::shared_ptr<render::Renderer> renderer) {};
 
 protected:
     Vector2 m_anchor{0.0f, 0.0f};
