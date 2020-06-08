@@ -40,6 +40,7 @@ public:
     void     addChild(ItemPtr child);
     ItemList children();
 
+    void drawChildren(std::shared_ptr<render::Renderer> renderer);
     virtual void draw(std::shared_ptr<render::Renderer> renderer) {};
 
 protected:

@@ -95,4 +95,13 @@ ItemList Item::children()
     return m_children;
 }
 
+void Item::drawChildren(std::shared_ptr<render::Renderer> renderer)
+{
+    for (auto child : m_children)
+    {
+        child->draw(renderer);
+        child->drawChildren(renderer);
+    }
+}
+
 }
