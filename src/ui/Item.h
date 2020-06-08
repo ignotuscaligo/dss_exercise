@@ -31,6 +31,9 @@ public:
     void    size(Vector2 size);
     Vector2 size() const;
 
+    void enabled(bool enabled);
+    bool enabled() const;
+
     Rect    drawRect() const;
     Vector2 drawAnchor() const;
 
@@ -48,6 +51,7 @@ protected:
     Vector2 m_position{0.0f, 0.0f};
     Vector2 m_scale{1.0f, 1.0f};
     Vector2 m_size{0.0f, 0.0f};
+    bool    m_enabled{true};
 
     Item*    m_parent{nullptr};
     ItemList m_children;

@@ -54,6 +54,16 @@ Vector2 Item::size() const
     return m_size;
 }
 
+void Item::enabled(bool enabled)
+{
+    m_enabled = enabled;
+}
+
+bool Item::enabled() const
+{
+    return m_enabled;
+}
+
 Rect Item::drawRect() const
 {
     Vector2 drawSize = m_size * m_scale;
@@ -100,8 +110,11 @@ void Item::drawChildren(std::shared_ptr<render::Renderer> renderer)
 {
     for (auto child : m_children)
     {
-        child->draw(renderer);
-        child->drawChildren(renderer);
+        if (child->enabled())
+        {
+            child->draw(renderer);
+            child->drawChildren(renderer);
+        }
     }
 }
 
