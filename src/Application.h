@@ -12,6 +12,8 @@
 
 #include "ui/ViewController.h"
 
+#include "input/State.h"
+
 #include <pplx/pplxtasks.h>
 
 #include <SDL2/SDL.h>
@@ -41,4 +43,5 @@ private:
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
 
     ui::ViewController m_gameView;
+    input::State       m_inputState;
 };

@@ -63,14 +63,21 @@ void Application::run()
             {
                 quit = true;
             }
-
-            if (e.type == SDL_KEYDOWN)
-            {
-                quit = true;
-            }
         }
 
         update();
+
+        m_inputState.update();
+
+        if (m_inputState.keyPressed(input::Key::LeftArrow))
+        {
+            m_gameView.selectPrevious();
+        }
+
+        if (m_inputState.keyPressed(input::Key::RightArrow))
+        {
+            m_gameView.selectNext();
+        }
 
         m_gameView.update();
 
