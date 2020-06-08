@@ -85,14 +85,22 @@ void Application::run()
             m_renderer->fillTexture(background);
         }
 
+        auto testRect  = m_testItem->drawRect();
         auto testImage = m_renderer->fetchTexture("Nats, unfazed by Rays' strategy, cruise to win");
+
+        m_renderer->drawRect(testRect, 135, 135, 135, 255);
 
         if (testImage)
         {
-            ui::Rect imageRect = m_testItem->drawRect();
-
-            m_renderer->drawTexture(testImage, imageRect);
+            m_renderer->drawTexture(testImage, testRect);
         }
+
+        ui::Item outline;
+
+        outline.position({testRect.x() - 4, testRect.y() - 4});
+        outline.size({testRect.width() + 8, testRect.height() + 8});
+
+        m_renderer->drawOutline(outline.drawRect(), 2, 255, 255, 255, 255);
 
         m_renderer->present();
     }
