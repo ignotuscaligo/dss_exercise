@@ -67,4 +67,14 @@ int Game::imageHeight() const
     return m_imageHeight;
 }
 
+void Game::imageName(std::string imageName)
+{
+    m_imageName = imageName;
+}
+
+std::string Game::imageName() const
+{
+    return m_imageName;
+}
+
 }

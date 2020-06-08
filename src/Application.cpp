@@ -132,20 +132,24 @@ void Application::checkTasks()
                 logger->info("Games task completed successfully");
                 auto games = m_gamesTask.get();
 
-                m_gameView.populateGames(games);
-
-                for (auto game : games)
+                for (int i = 0; i < games.size(); i++)
                 {
+                    auto& game = games[i];
+
                     logger->debug("game headline: {}", game.headline());
                     logger->debug("game imageUrl: {}", game.imageUrl());
 
-                    auto imageUrl = game.imageUrl();
+                    auto imageUrl  = game.imageUrl();
+                    auto imageName = "game" + std::to_string(i);
 
                     if (!imageUrl.empty())
                     {
-                        m_tasks.requestImageForRenderer(game.headline(), imageUrl, m_renderer);
+                        m_tasks.requestImageForRenderer(imageName, imageUrl, m_renderer);
+                        game.imageName(imageName);
                     }
                 }
+
+                m_gameView.populateGames(games);
 
                 m_gamesTaskRunning = false;
             }

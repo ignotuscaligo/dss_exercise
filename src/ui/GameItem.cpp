@@ -27,7 +27,7 @@ void GameItem::game(mlb::Game game)
 {
     m_game = game;
 
-    m_image->imageName(m_game.headline());
+    m_image->imageName(m_game.imageName());
 }
 
 mlb::Game GameItem::game() const
