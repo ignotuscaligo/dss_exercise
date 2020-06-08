@@ -75,7 +75,6 @@ target_link_libraries(dss_exercise
         cpprestsdk::cpprest
         spdlog::spdlog
         SDL2::SDL2
-        SDL2::SDL2main
         SDL2::SDL2_image
         SDL2::SDL2_gfx
         SDL2::SDL2_ttf

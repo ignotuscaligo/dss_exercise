@@ -33,7 +33,6 @@ $ cmake --build .
 
 The project can be built from commandline using `cmake --build .` or with the generated Xcode project.
 
-
 ### Troubleshooting
 
 * `No rule to make target '/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework'`, or similar
