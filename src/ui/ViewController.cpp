@@ -20,6 +20,14 @@ ViewController::ViewController()
     m_rowLayout->spacing(30);
 
     m_rootItem->addChild(m_rowLayout);
+
+    auto testImage = std::make_shared<ImageItem>();
+
+    testImage->size({100, 20});
+    testImage->position({50, 500});
+    testImage->imageName("testLabel");
+
+    m_rootItem->addChild(testImage);
 }
 
 void ViewController::selectedIndex(int selectedIndex)
