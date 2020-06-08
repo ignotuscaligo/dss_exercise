@@ -7,6 +7,8 @@ GameItem::GameItem()
 : m_background(std::make_shared<RectangleItem>())
 , m_image(std::make_shared<ImageItem>())
 , m_outline(std::make_shared<RectangleItem>())
+, m_headline(std::make_shared<TextItem>())
+, m_subHeadline(std::make_shared<TextItem>())
 {
     m_background->anchor({0.5f, 0.5f});
     m_background->fillColor({100, 100, 100, 255});
@@ -18,9 +20,19 @@ GameItem::GameItem()
     m_outline->borderWidth(2);
     m_outline->enabled(m_selected);
 
+    m_headline->anchor({0.5f, 1.0f});
+    m_headline->fontName("roboto_18");
+    m_headline->maxCharacterWidth(18);
+
+    m_subHeadline->anchor({0.5f, 0.0f});
+    m_subHeadline->fontName("roboto_15");
+    m_subHeadline->maxCharacterWidth(18);
+
     addChild(m_background);
     addChild(m_image);
     addChild(m_outline);
+    addChild(m_headline);
+    addChild(m_subHeadline);
 }
 
 void GameItem::game(mlb::Game game)
@@ -28,6 +40,8 @@ void GameItem::game(mlb::Game game)
     m_game = game;
 
     m_image->imageName(m_game.imageName());
+    m_headline->text(m_game.headline());
+    m_subHeadline->text(m_game.subHeadline());
 }
 
 mlb::Game GameItem::game() const
@@ -78,6 +92,16 @@ void GameItem::update(float deltaSeconds)
         imageRect.width() + 8,
         imageRect.height() + 8
     });
+
+    m_headline->position({
+        m_size.x * 0.5f,
+        -35
+    });
+
+    m_subHeadline->position({
+        m_size.x * 0.5f,
+        m_size.y + 35
+    });
 }
 
 void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
@@ -87,6 +111,8 @@ void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
     m_background->enabled(!m_selected || !imageValid);
     m_image->enabled(imageValid);
     m_outline->enabled(m_selected && imageValid);
+    m_headline->enabled(m_selected);
+    m_subHeadline->enabled(m_selected);
 }
 
 }

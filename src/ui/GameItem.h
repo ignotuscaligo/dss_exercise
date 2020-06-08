@@ -3,6 +3,7 @@
 #include "ui/Item.h"
 #include "ui/ImageItem.h"
 #include "ui/RectangleItem.h"
+#include "ui/TextItem.h"
 #include "mlb/Game.h"
 
 namespace render { class Renderer; }
@@ -31,6 +32,8 @@ private:
     std::shared_ptr<RectangleItem> m_background;
     std::shared_ptr<ImageItem>     m_image;
     std::shared_ptr<RectangleItem> m_outline;
+    std::shared_ptr<TextItem>      m_headline;
+    std::shared_ptr<TextItem>      m_subHeadline;
 };
 
 }
