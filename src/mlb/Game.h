@@ -10,6 +10,7 @@ namespace mlb
 class Game
 {
 public:
+    Game() = default;
     Game(web::json::value object);
 
     std::string headline() const;
