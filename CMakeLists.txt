@@ -13,6 +13,7 @@ find_package(cpprestsdk REQUIRED)
 find_package(SDL2       REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_gfx   REQUIRED)
+find_package(SDL2_ttf   REQUIRED)
 find_package(spdlog     REQUIRED)
 
 if(WIN32)
@@ -92,6 +93,7 @@ else()
             SDL2::SDL2main
             SDL2::SDL2_image
             SDL2::SDL2_gfx
+            SDL2::SDL2_ttf
     )
 endif()
 
