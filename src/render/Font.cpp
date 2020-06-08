@@ -20,4 +20,9 @@ Font::~Font()
     TTF_CloseFont(m_font);
 }
 
+TTF_Font* Font::handle() const
+{
+    return m_font;
+}
+
 }
