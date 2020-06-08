@@ -11,6 +11,7 @@ ViewController::ViewController()
 , m_background(std::make_shared<ui::ImageItem>())
 {
     m_background->imageName("background");
+    m_background->size({1280, 720});
 
     m_rootItem->addChild(m_background);
 
