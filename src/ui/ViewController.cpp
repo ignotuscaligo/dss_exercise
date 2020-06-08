@@ -26,6 +26,7 @@ ViewController::ViewController()
     testImage->size({100, 20});
     testImage->position({50, 500});
     testImage->imageName("testLabel");
+    testImage->matchImageSize(true);
 
     m_rootItem->addChild(testImage);
 }
