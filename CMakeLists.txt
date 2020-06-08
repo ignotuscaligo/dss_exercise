@@ -41,6 +41,7 @@ target_sources(dss_exercise
         "src/ui/Item.cpp"
         "src/ui/ImageItem.cpp"
         "src/ui/RectangleItem.cpp"
+        "src/ui/RowLayout.cpp"
         "src/ui/GameItem.cpp"
 )
 
