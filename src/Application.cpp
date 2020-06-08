@@ -130,7 +130,6 @@ void Application::checkTasks()
         {
             if (m_gamesTask.is_done())
             {
-                logger->info("Games task completed successfully");
                 auto games = m_gamesTask.get();
 
                 for (int i = 0; i < games.size(); i++)
@@ -152,6 +151,7 @@ void Application::checkTasks()
 
                 m_gameView.populateGames(games);
 
+                logger->info("Games task completed successfully");
                 m_gamesTaskRunning = false;
             }
         }
