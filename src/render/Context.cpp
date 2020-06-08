@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include <exception>
 #include <string>
@@ -24,10 +25,18 @@ Context::Context()
         SDL_Quit();
         throw std::runtime_error("Failed to initialize image loading: " + std::string(IMG_GetError()));
     }
+
+    if (TTF_Init() < 0)
+    {
+        IMG_Quit();
+        SDL_Quit();
+        throw std::runtime_error("Failed to initialize TTF loading: " + std::string(TTF_GetError()));
+    }
 }
 
 Context::~Context()
 {
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
