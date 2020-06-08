@@ -47,14 +47,8 @@ bool GameItem::selected() const
     return m_selected;
 }
 
-void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
+void GameItem::update(float deltaSeconds)
 {
-    bool imageValid = m_image->valid(renderer);
-
-    m_background->enabled(!m_selected || !imageValid);
-    m_image->enabled(imageValid);
-    m_outline->enabled(m_selected && imageValid);
-
     m_background->position({
         m_size.x * 0.5f,
         m_size.y * 0.5f
@@ -66,16 +60,17 @@ void GameItem::draw(std::shared_ptr<render::Renderer> renderer)
     m_background->size(m_size);
     m_image->size(m_size);
 
-    if (m_selected)
+    float targetScale = m_selected ? 1.25f : 1.0f;
+    float currentScale = m_background->scale().x;
+    float scaleDelta = targetScale - currentScale;
+
+    if (std::abs(scaleDelta) > 0)
     {
-        m_background->scale({1.25f, 1.25f});
-        m_image->scale(m_background->scale());
+        currentScale += scaleDelta * 10.0f * deltaSeconds;
     }
-    else
-    {
-        m_background->scale({1.0f, 1.0f});
-        m_image->scale(m_background->scale());
-    }
+
+    m_background->scale({currentScale, currentScale});
+    m_image->scale(m_background->scale());
 
     auto imageRect = m_image->drawRect();
 
