@@ -32,6 +32,7 @@ public:
     void loadFont(std::string name, std::string filename);
 
     void createImageTexture(const std::string& name, std::vector<unsigned char>& bytes);
+    void createTextTexture(const std::string& name, const std::string& fontName, const std::string& text);
     std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
 
     void fillTexture(std::shared_ptr<Texture> texture);
@@ -39,7 +40,10 @@ public:
 
     void drawRect(ui::Rect rect, Color color);
     void drawOutline(ui::Rect rect, int width, Color color);
+
 private:
+    std::shared_ptr<Font> fetchFont(const std::string& name) const;
+
     SDL_Renderer* m_renderer{nullptr};
 
     std::map<std::string, std::shared_ptr<Font>>    m_fonts;

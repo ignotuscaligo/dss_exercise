@@ -5,6 +5,7 @@
 #include "render/Color.h"
 #include "render/Font.h"
 #include "render/ImageTexture.h"
+#include "render/TextTexture.h"
 
 #include "ui/Rect.h"
 
@@ -69,12 +70,35 @@ void Renderer::createImageTexture(const std::string& name, std::vector<unsigned 
     m_textures[name] = std::make_shared<ImageTexture>(this, bytes);
 }
 
+void Renderer::createTextTexture(const std::string& name, const std::string& fontName, const std::string& text)
+{
+    auto font = fetchFont(fontName);
+
+    if (font)
+    {
+        m_textures[name] = std::make_shared<TextTexture>(this, font, text);
+    }
+}
+
 std::shared_ptr<Texture> Renderer::fetchTexture(const std::string& name) const
 {
     auto texture = m_textures.find(name);
     if (texture != m_textures.end())
     {
         return texture->second;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+std::shared_ptr<Font> Renderer::fetchFont(const std::string& name) const
+{
+    auto font = m_fonts.find(name);
+    if (font != m_fonts.end())
+    {
+        return font->second;
     }
     else
     {
