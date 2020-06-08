@@ -15,11 +15,15 @@ public:
     void        imageName(std::string imageName);
     std::string imageName() const;
 
+    void matchImageSize(bool matchImageSize);
+    bool matchImageSize() const;
+
     bool valid(std::shared_ptr<render::Renderer> renderer) const;
     void draw(std::shared_ptr<render::Renderer> renderer) override;
 
 private:
     std::string m_imageName{};
+    bool        m_matchImageSize{false};
 };
 
 }
