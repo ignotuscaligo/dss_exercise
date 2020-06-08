@@ -6,6 +6,7 @@
 #include "mlb/Game.h"
 
 #include "ui/Rect.h"
+#include "ui/ImageItem.h"
 
 #include <cpprest/http_client.h>
 #include <cpprest/uri.h>
@@ -26,8 +27,8 @@ Application::Application()
     auto logger = utility::get_logger();
     logger->info("Creating application");
 
-    ui::ItemPtr child0 = std::make_shared<ui::Item>();
-    ui::ItemPtr child1 = std::make_shared<ui::Item>();
+    std::shared_ptr<ui::ImageItem> child0 = std::make_shared<ui::ImageItem>();
+    std::shared_ptr<ui::ImageItem> child1 = std::make_shared<ui::ImageItem>();
 
     m_rootItem->addChild(child0);
     child0->parent(m_rootItem);
@@ -38,10 +39,14 @@ Application::Application()
     child0->position({10, 10});
     child0->size({248, 138});
 
+    child0->imageName("Nats, unfazed by Rays' strategy, cruise to win");
+
     auto rect = child0->drawRect();
 
     child1->position({rect.right() + 10, 10});
     child1->size({248, 138});
+
+    child1->imageName("Colon ties Marichal with win No. 243");
 }
 
 void Application::run()
@@ -97,14 +102,8 @@ void Application::run()
         for (auto child : m_rootItem->children())
         {
             auto childRect = child->drawRect();
-            auto image     = m_renderer->fetchTexture("Nats, unfazed by Rays' strategy, cruise to win");
 
             m_renderer->drawRect(childRect, 135, 135, 135, 255);
-
-            if (image)
-            {
-                m_renderer->drawTexture(image, childRect);
-            }
 
             ui::Item outline;
 
@@ -112,6 +111,8 @@ void Application::run()
             outline.size({childRect.width() + 8, childRect.height() + 8});
 
             m_renderer->drawOutline(outline.drawRect(), 2, 255, 255, 255, 255);
+
+            child->draw(m_renderer);
         }
 
         m_renderer->present();
