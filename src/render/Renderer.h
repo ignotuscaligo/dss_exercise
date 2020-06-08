@@ -28,7 +28,7 @@ public:
     void clear();
     void present();
 
-    std::shared_ptr<Texture> createTexture(const std::string& name, std::vector<unsigned char>& bytes);
+    void createImageTexture(const std::string& name, std::vector<unsigned char>& bytes);
     std::shared_ptr<Texture> fetchTexture(const std::string& name) const;
 
     void fillTexture(std::shared_ptr<Texture> texture);

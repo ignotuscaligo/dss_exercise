@@ -3,6 +3,7 @@
 #include "render/Window.h"
 #include "render/Texture.h"
 #include "render/Color.h"
+#include "render/ImageTexture.h"
 
 #include "ui/Rect.h"
 
@@ -55,13 +56,9 @@ void Renderer::present()
     SDL_RenderPresent(m_renderer);
 }
 
-std::shared_ptr<Texture> Renderer::createTexture(const std::string& name, std::vector<unsigned char>& bytes)
+void Renderer::createImageTexture(const std::string& name, std::vector<unsigned char>& bytes)
 {
-    auto texture = std::make_shared<Texture>(this, bytes);
-
-    m_textures[name] = texture;
-
-    return texture;
+    m_textures[name] = std::make_shared<ImageTexture>(this, bytes);
 }
 
 std::shared_ptr<Texture> Renderer::fetchTexture(const std::string& name) const

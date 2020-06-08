@@ -36,7 +36,7 @@ void Tasks::requestImageForRenderer(std::string name, std::string url, std::weak
         if (rendererLock)
         {
             logger->debug("image '{}': Creating texture", name);
-            rendererLock->createTexture(name, bytes);
+            rendererLock->createImageTexture(name, bytes);
         }
 
         logger->debug("image '{}': Task completed", name);
