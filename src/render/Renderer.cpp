@@ -28,7 +28,8 @@ Renderer::Renderer(std::shared_ptr<Window> window)
         throw std::runtime_error("Failed to create SDL renderer: " + std::string(SDL_GetError()));
     }
 
-    SDL_RenderSetScale(m_renderer, 2, 2);
+    m_pixelScale = 2.0f;
+    SDL_RenderSetScale(m_renderer, m_pixelScale, m_pixelScale);
 }
 
 Renderer::~Renderer()
@@ -41,6 +42,11 @@ Renderer::~Renderer()
 SDL_Renderer* Renderer::handle() const
 {
     return m_renderer;
+}
+
+float Renderer::pixelScale() const
+{
+    return m_pixelScale;
 }
 
 void Renderer::drawColor(int red, int green, int blue, int alpha)

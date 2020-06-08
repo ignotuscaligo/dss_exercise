@@ -24,6 +24,7 @@ public:
     ~Renderer();
 
     SDL_Renderer* handle() const;
+    float         pixelScale() const;
 
     void drawColor(int red, int green, int blue, int alpha);
     void clear();
@@ -45,6 +46,7 @@ private:
     std::shared_ptr<Font> fetchFont(const std::string& name) const;
 
     SDL_Renderer* m_renderer{nullptr};
+    float         m_pixelScale{1.0f};
 
     std::map<std::string, std::shared_ptr<Font>>    m_fonts;
     std::map<std::string, std::shared_ptr<Texture>> m_textures;
