@@ -17,8 +17,11 @@ class ViewController
 public:
     ViewController();
 
-    void selectedIndex(int index);
+    void selectedIndex(int selectedIndex);
     int  selectedIndex() const;
+
+    void selectNext();
+    void selectPrevious();
 
     void populateGames(std::vector<mlb::Game> games);
     void update();

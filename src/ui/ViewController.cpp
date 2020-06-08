@@ -1,5 +1,7 @@
 #include "ui/ViewController.h"
 
+#include <algorithm>
+
 namespace ui
 {
 
@@ -16,6 +18,26 @@ ViewController::ViewController()
     m_rowLayout->spacing(30);
 
     m_rootItem->addChild(m_rowLayout);
+}
+
+void ViewController::selectedIndex(int selectedIndex)
+{
+    m_selectedIndex = std::min(std::max(0, selectedIndex), static_cast<int>(m_gameItems.size()) - 1);
+}
+
+int ViewController::selectedIndex() const
+{
+    return m_selectedIndex;
+}
+
+void ViewController::selectNext()
+{
+    selectedIndex(m_selectedIndex + 1);
+}
+
+void ViewController::selectPrevious()
+{
+    selectedIndex(m_selectedIndex - 1);
 }
 
 void ViewController::populateGames(std::vector<mlb::Game> games)
