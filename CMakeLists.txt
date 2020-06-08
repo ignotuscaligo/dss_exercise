@@ -74,33 +74,12 @@ target_link_libraries(dss_exercise
     PRIVATE
         cpprestsdk::cpprest
         spdlog::spdlog
+        SDL2::SDL2
+        SDL2::SDL2main
+        SDL2::SDL2_image
+        SDL2::SDL2_gfx
+        SDL2::SDL2_ttf
 )
-
-if(UNIX AND NOT APPLE)
-    # In order to have consistent #include directives across platforms,
-    # use the "<SDL2>/include" directory as the root rather than "<SDL2>/include/SDL2"
-    # that would be included by using SDL2_INCLUDE_DIRECTORIES
-    target_include_directories(dss_exercise
-        PRIVATE
-            ${SDL2_EXEC_PREFIX}/include
-    )
-
-    # When libsdl2-dev is installed on Ubuntu via apt, the package does not create the
-    # SDL2:: targets, so the library needs to be linked using an older method
-    target_link_libraries(dss_exercise
-        PRIVATE
-            ${SDL2_LIBRARIES}
-    )
-else()
-    target_link_libraries(dss_exercise
-        PRIVATE
-            SDL2::SDL2
-            SDL2::SDL2main
-            SDL2::SDL2_image
-            SDL2::SDL2_gfx
-            SDL2::SDL2_ttf
-    )
-endif()
 
 target_compile_features(dss_exercise
     PUBLIC
