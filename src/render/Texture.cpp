@@ -21,4 +21,14 @@ SDL_Texture* Texture::handle() const
     return m_texture;
 }
 
+int Texture::width() const
+{
+    return m_width;
+}
+
+int Texture::height() const
+{
+    return m_height;
+}
+
 }

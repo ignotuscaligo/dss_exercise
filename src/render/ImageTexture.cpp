@@ -21,6 +21,9 @@ ImageTexture::ImageTexture(Renderer* renderer, std::vector<unsigned char>& bytes
     }
     else
     {
+        m_width = image->w;
+        m_height = image->h;
+
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
         m_texture = SDL_CreateTextureFromSurface(renderer->handle(), image);
 
