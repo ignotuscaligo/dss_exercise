@@ -2,7 +2,9 @@
 
 #include "utility/logging.h"
 
-int main(int argc, char** argv)
+#include <SDL2/SDL.h>
+
+extern "C" int main(int argc, char** argv)
 {
     auto logger = utility::get_logger();
 
