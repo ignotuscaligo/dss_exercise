@@ -30,7 +30,7 @@ public:
     void clear();
     void present();
 
-    void loadFont(std::string name, std::string filename);
+    void loadFont(std::string name, std::string filename, int pointSize);
 
     void createImageTexture(const std::string& name, std::vector<unsigned char>& bytes);
     void createTextTexture(const std::string& name, const std::string& fontName, const std::string& text);

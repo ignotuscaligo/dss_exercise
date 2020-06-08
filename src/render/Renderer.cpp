@@ -64,9 +64,9 @@ void Renderer::present()
     SDL_RenderPresent(m_renderer);
 }
 
-void Renderer::loadFont(std::string name, std::string filename)
+void Renderer::loadFont(std::string name, std::string filename, int pointSize)
 {
-    auto font = std::make_shared<Font>(filename);
+    auto font = std::make_shared<Font>(filename, pointSize * m_pixelScale);
 
     m_fonts[name] = font;
 }
