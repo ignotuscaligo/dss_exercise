@@ -13,6 +13,7 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 
 #include <algorithm>
+#include <stdexcept>
 #include <exception>
 #include <string>
 

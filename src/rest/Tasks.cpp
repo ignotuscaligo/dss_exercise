@@ -5,6 +5,9 @@
 
 #include <cpprest/http_client.h>
 
+#include <stdexcept>
+#include <exception>
+
 namespace rest
 {
 
@@ -14,7 +17,7 @@ void Tasks::requestImageForRenderer(std::string name, std::string url, std::weak
 
     logger->debug("Requesting image named '{}' from {}", name, url);
 
-    auto client = web::http::client::http_client(url);
+    auto client = web::http::client::http_client(utility::conversions::to_string_t(url));
     auto getTask = client.request(web::http::methods::GET);
     auto vectorTask = getTask.then([name](web::http::http_response response) {
         auto logger = utility::get_logger();

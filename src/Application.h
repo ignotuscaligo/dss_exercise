@@ -2,7 +2,6 @@
 
 #include "render/Window.h"
 #include "render/Renderer.h"
-#include "render/Texture.h"
 #include "render/Context.h"
 
 #include "mlb/Stats.h"
@@ -15,8 +14,6 @@
 #include "input/State.h"
 
 #include <pplx/pplxtasks.h>
-
-#include <SDL2/SDL.h>
 
 #include <chrono>
 #include <memory>

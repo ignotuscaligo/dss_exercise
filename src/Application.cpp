@@ -14,16 +14,12 @@
 #include "render/Color.h"
 #include "render/Font.h"
 
-#include <cpprest/http_client.h>
-#include <cpprest/uri.h>
-#include <cpprest/json.h>
-
 #include <SDL2/SDL_image.h>
 
 namespace
 {
 
-const utility::string_t background_image_url = U("http://mlb.mlb.com/mlb/images/devices/ballpark/1920x1080/1.jpg");
+const std::string background_image_url = "http://mlb.mlb.com/mlb/images/devices/ballpark/1920x1080/1.jpg";
 
 }
 

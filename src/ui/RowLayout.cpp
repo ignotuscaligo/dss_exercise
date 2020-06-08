@@ -2,6 +2,8 @@
 
 #include "render/Renderer.h"
 
+#include <algorithm>
+
 namespace ui
 {
 

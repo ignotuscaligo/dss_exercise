@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-class SDL_Renderer;
+struct SDL_Renderer;
 
 namespace ui { class Rect; }
 
@@ -14,7 +14,7 @@ namespace render
 
 class Window;
 class Texture;
-class Color;
+struct Color;
 class Font;
 
 class Renderer

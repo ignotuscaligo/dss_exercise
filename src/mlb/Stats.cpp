@@ -50,7 +50,7 @@ pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::tm* date)
 pplx::task<std::vector<Game>> Stats::requestGamesForDate(std::string date)
 {
     auto uri = web::uri_builder(api_schedule).append_query(U("hydrate"), query_hydrate)
-                                             .append_query(U("date"), date)
+                                             .append_query(U("date"), utility::conversions::to_string_t(date))
                                              .append_query(U("sportId"), query_sport_id)
                                              .to_string();
 
