@@ -53,16 +53,9 @@ Application::Application()
     gameOutline0->borderWidth(2);
 
     gameItem0->addChild(gameBackground0);
-    gameBackground0->parent(gameItem0);
-
     gameItem0->addChild(gameImage0);
-    gameImage0->parent(gameItem0);
-
     gameItem0->addChild(gameOutline0);
-    gameOutline0->parent(gameItem0);
-
     m_rootItem->addChild(gameItem0);
-    gameItem0->parent(m_rootItem);
 
     // Test item 2
     ui::ItemPtr gameItem1 = std::make_shared<ui::Item>();
@@ -87,16 +80,9 @@ Application::Application()
     gameOutline1->borderWidth(2);
 
     gameItem1->addChild(gameBackground1);
-    gameBackground1->parent(gameItem1);
-
     gameItem1->addChild(gameImage1);
-    gameImage1->parent(gameItem1);
-
     gameItem1->addChild(gameOutline1);
-    gameOutline1->parent(gameItem1);
-
     m_rootItem->addChild(gameItem1);
-    gameItem1->parent(m_rootItem);
 }
 
 void Application::run()

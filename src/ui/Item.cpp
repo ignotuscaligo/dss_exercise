@@ -67,7 +67,7 @@ Vector2 Item::drawAnchor() const
 {
     Vector2 drawAnchor = m_position;
 
-    if (m_parent)
+    if (m_parent != nullptr)
     {
         drawAnchor = drawAnchor + m_parent->drawAnchor();
     }
@@ -75,12 +75,12 @@ Vector2 Item::drawAnchor() const
     return drawAnchor;
 }
 
-void Item::parent(ItemPtr parent)
+void Item::parent(Item* parent)
 {
     m_parent = parent;
 }
 
-ItemPtr Item::parent()
+Item* Item::parent()
 {
     return m_parent;
 }
@@ -88,6 +88,7 @@ ItemPtr Item::parent()
 void Item::addChild(ItemPtr child)
 {
     m_children.push_back(child);
+    child->parent(this);
 }
 
 ItemList Item::children()

@@ -34,9 +34,6 @@ public:
     Rect    drawRect() const;
     Vector2 drawAnchor() const;
 
-    void    parent(ItemPtr parent);
-    ItemPtr parent();
-
     void     addChild(ItemPtr child);
     ItemList children();
 
@@ -44,12 +41,15 @@ public:
     virtual void draw(std::shared_ptr<render::Renderer> renderer) {};
 
 protected:
+    void  parent(Item* parent);
+    Item* parent();
+
     Vector2 m_anchor{0.0f, 0.0f};
     Vector2 m_position{0.0f, 0.0f};
     Vector2 m_scale{1.0f, 1.0f};
     Vector2 m_size{0.0f, 0.0f};
 
-    ItemPtr  m_parent{nullptr};
+    Item*    m_parent{nullptr};
     ItemList m_children;
 };
 
