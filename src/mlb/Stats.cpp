@@ -87,8 +87,37 @@ std::vector<Game> Stats::parseGamesFromJson(web::json::value json)
 
     logger->debug("Processing extracted JSON");
 
+    if (!json.has_field(U("totalGames")))
+    {
+        return {};
+    }
+
+    if (!json.has_field(U("dates")))
+    {
+        return {};
+    }
+
+    auto dates = json[U("dates")];
+
+    if (dates.size() == 0)
+    {
+        return {};
+    }
+
+    auto firstDate = dates[0];
+
+    if (!firstDate.has_field(U("games")))
+    {
+        return {};
+    }
+
     auto totalGames = json[U("totalGames")].as_integer();
-    auto gamesList = json[U("dates")][0][U("games")];
+    auto gamesList  = firstDate[U("games")];
+
+    if (gamesList.size() == 0)
+    {
+        return {};
+    }
 
     logger->debug("totalGames: {}", totalGames);
 
