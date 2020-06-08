@@ -27,17 +27,9 @@ const utility::string_t background_image_url = U("http://mlb.mlb.com/mlb/images/
 }
 
 Application::Application()
-: m_rootItem(std::make_shared<ui::Item>())
 {
     auto logger = utility::get_logger();
     logger->info("Creating application");
-
-    std::shared_ptr<ui::RowLayout> row = std::make_shared<ui::RowLayout>();
-
-    row->position({9, 250});
-    row->spacing(30);
-
-    m_rootItem->addChild(row);
 }
 
 void Application::run()
@@ -83,14 +75,8 @@ void Application::run()
         m_renderer->drawColor(0, 0, 0, 255);
         m_renderer->clear();
 
-        auto background = m_renderer->fetchTexture("background");
-
-        if (background)
-        {
-            m_renderer->fillTexture(background);
-        }
-
-        m_rootItem->drawChildren(m_renderer);
+        m_gameView.update();
+        m_gameView.draw(m_renderer);
 
         m_renderer->present();
     }
@@ -127,21 +113,12 @@ void Application::update()
                 logger->info("Games task completed successfully");
                 auto games = m_gamesTask.get();
 
-                auto rowLayout = m_rootItem->children()[0];
-
-                int i = 0;
+                m_gameView.populateGames(games);
 
                 for (auto game : games)
                 {
                     logger->debug("game headline: {}", game.headline());
                     logger->debug("game imageUrl: {}", game.imageUrl());
-
-                    std::shared_ptr<ui::GameItem> item = std::make_shared<ui::GameItem>();
-
-                    item->size({123, 69});
-                    item->game(game);
-
-                    rowLayout->addChild(item);
 
                     auto imageUrl = game.imageUrl();
 

@@ -43,6 +43,7 @@ target_sources(dss_exercise
         "src/ui/RectangleItem.cpp"
         "src/ui/RowLayout.cpp"
         "src/ui/GameItem.cpp"
+        "src/ui/ViewController.cpp"
 )
 
 if(WIN32)

@@ -10,7 +10,7 @@
 
 #include "rest/Tasks.h"
 
-#include "ui/Item.h"
+#include "ui/ViewController.h"
 
 #include <pplx/pplxtasks.h>
 
@@ -40,5 +40,5 @@ private:
     std::shared_ptr<render::Window>   m_window{nullptr};
     std::shared_ptr<render::Renderer> m_renderer{nullptr};
 
-    ui::ItemPtr m_rootItem;
+    ui::ViewController m_gameView;
 };
