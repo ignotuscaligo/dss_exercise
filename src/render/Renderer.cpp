@@ -6,7 +6,9 @@
 #include "ui/Rect.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
+#include <algorithm>
 #include <exception>
 #include <string>
 
@@ -89,6 +91,42 @@ void Renderer::drawTexture(std::shared_ptr<Texture> texture, ui::Rect rect)
     };
 
     SDL_RenderCopyF(m_renderer, texture->handle(), nullptr, &imageRect);
+}
+
+void Renderer::drawRect(ui::Rect rect, int red, int green, int blue, int alpha)
+{
+    SDL_FRect sdlRect = {
+        rect.x(),
+        rect.y(),
+        rect.width(),
+        rect.height()
+    };
+
+    SDL_SetRenderDrawColor(m_renderer, red, green, blue, alpha);
+    SDL_RenderFillRectF(m_renderer, &sdlRect);
+}
+
+void Renderer::drawOutline(ui::Rect rect, int width, int red, int green, int blue, int alpha)
+{
+    float lineLeft = rect.left() + width / 2;
+    float lineRight = rect.right() - ((width + 1) / 2);
+    float lineTop = rect.top();
+    float lineBottom = rect.bottom() - 1;
+
+    float topOffset = (width / 2);
+    float bottomOffset = -std::max(0, ((width - 1) / 2));
+
+    // left
+    thickLineRGBA(m_renderer, lineLeft, lineTop, lineLeft, lineBottom, width, red, green, blue, alpha);
+
+    // top
+    thickLineRGBA(m_renderer, lineLeft, lineTop + topOffset, lineRight, lineTop + topOffset, width, red, green, blue, alpha);
+
+    // right
+    thickLineRGBA(m_renderer, lineRight, lineTop, lineRight, lineBottom, width, red, green, blue, alpha);
+
+    // bottom
+    thickLineRGBA(m_renderer, lineLeft, lineBottom + bottomOffset, lineRight, lineBottom + bottomOffset, width, red, green, blue, alpha);
 }
 
 }
