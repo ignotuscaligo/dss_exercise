@@ -15,6 +15,11 @@ std::string ImageItem::imageName() const
     return m_imageName;
 }
 
+bool ImageItem::valid(std::shared_ptr<render::Renderer> renderer) const
+{
+    return renderer->fetchTexture(m_imageName) != nullptr;
+}
+
 void ImageItem::draw(std::shared_ptr<render::Renderer> renderer)
 {
     if (m_imageName.empty())

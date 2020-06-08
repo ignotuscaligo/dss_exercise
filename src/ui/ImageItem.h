@@ -15,6 +15,7 @@ public:
     void        imageName(std::string imageName);
     std::string imageName() const;
 
+    bool valid(std::shared_ptr<render::Renderer> renderer) const;
     void draw(std::shared_ptr<render::Renderer> renderer) override;
 
 private:
