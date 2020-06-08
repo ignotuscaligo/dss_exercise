@@ -21,14 +21,39 @@ Game::Game(web::json::value object)
             {
                 auto mlbRecap = recap[U("mlb")];
 
-                m_headline    = utility::as_std_string(mlbRecap[U("headline")].as_string());
-                m_subHeadline = utility::as_std_string(mlbRecap[U("subhead")].as_string());
+                if (mlbRecap.has_field(U("headline")))
+                {
+                    m_headline = utility::as_std_string(mlbRecap[U("headline")].as_string());
+                }
 
-                auto imageCut = mlbRecap[U("photo")][U("cuts")][U("496x279")];
+                if (mlbRecap.has_field(U("subhead")))
+                {
+                    m_subHeadline = utility::as_std_string(mlbRecap[U("subhead")].as_string());
+                }
 
-                m_imageUrl    = utility::as_std_string(imageCut[U("src")].as_string());
-                m_imageWidth  = imageCut[U("width")].as_integer();
-                m_imageHeight = imageCut[U("height")].as_integer();
+                auto imageCuts = mlbRecap[U("photo")][U("cuts")];
+
+                if (imageCuts.has_field(U("496x279")))
+                {
+                    auto imageInfo = imageCuts[U("496x279")];
+
+                    m_imageUrl    = utility::as_std_string(imageInfo[U("src")].as_string());
+                    m_imageWidth  = imageInfo[U("width")].as_integer();
+                    m_imageHeight = imageInfo[U("height")].as_integer();
+                }
+                else
+                {
+                    for (auto imageInfo : imageCuts.as_array())
+                    {
+                        if (imageInfo[U("width")].as_integer() == 496)
+                        {
+                            m_imageUrl    = utility::as_std_string(imageInfo[U("src")].as_string());
+                            m_imageWidth  = imageInfo[U("width")].as_integer();
+                            m_imageHeight = imageInfo[U("height")].as_integer();
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
